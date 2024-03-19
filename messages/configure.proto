@@ -1,0 +1,10 @@
+syntax = "proto3";
+package configure;
+
+// [RINF:DART-SIGNAL]
+message ConfigureTinicInput {
+}
+
+// [RINF:RUST-SIGNAL]
+message ConfigureTinicOutput {
+}
