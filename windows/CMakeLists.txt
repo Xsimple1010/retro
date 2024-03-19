@@ -106,3 +106,14 @@ install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
 install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
   CONFIGURATIONS Profile;Release
   COMPONENT Runtime)
+
+  # Invoke the build for native code shared with the other target platforms.
+# This can be changed to accommodate different builds.
+find_package(SDL2 REQUIRED)
+
+# List of absolute paths to libraries that should be bundled with the plugin.
+# This list could contain prebuilt libraries, or libraries created by an
+# external build triggered from this build file.
+
+install(FILES "${SDL2_BINDIR}/SDL2.dll" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+  COMPONENT Runtime)
