@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/game_item_list.dart';
+import 'package:retro/components/list_with_title.dart';
 // import 'package:retro/messages/load_core.pb.dart';
 // import 'package:retro/messages/load_rom.pb.dart';
 import 'package:retro/models/game_item.dart';
@@ -26,6 +27,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GameItemList(constraints: constraints, gameList: list),
+                ListWithTitle(constraints: constraints, gameList: list)
               ],
             )
           ],

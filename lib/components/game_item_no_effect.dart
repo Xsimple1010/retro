@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:retro/models/game_item.dart';
 
-class GameItem extends StatefulWidget {
-  const GameItem({
+class GameItemNoEffect extends StatefulWidget {
+  const GameItemNoEffect({
     super.key,
     required this.height,
     required this.width,
@@ -14,10 +13,10 @@ class GameItem extends StatefulWidget {
   final GameItemModel data;
 
   @override
-  State<GameItem> createState() => _GameItemState();
+  State<GameItemNoEffect> createState() => _GameItemNoEffectState();
 }
 
-class _GameItemState extends State<GameItem> {
+class _GameItemNoEffectState extends State<GameItemNoEffect> {
   bool focused = false;
   changeFocus(bool value) {
     setState(() {
@@ -32,7 +31,7 @@ class _GameItemState extends State<GameItem> {
       child: Builder(
         builder: (BuildContext context) {
           return Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.symmetric(horizontal: 12),
             foregroundDecoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
                 Radius.circular(12),
@@ -49,16 +48,7 @@ class _GameItemState extends State<GameItem> {
                 width: widget.width,
               ),
             ),
-          )
-              .animate(target: Focus.of(context).hasFocus ? 1 : 0)
-              .moveY(
-                begin: 40,
-                end: -10.2,
-                curve: Curves.easeIn,
-                duration: Duration(milliseconds: 15),
-              )
-              .scale(begin: Offset(0.75, 0.75));
-          // .moveX(begin: -30.4, end: 1);
+          );
         },
       ),
     );

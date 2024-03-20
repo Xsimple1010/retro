@@ -19,7 +19,9 @@ class GameItemList extends StatelessWidget {
       height: constraints.maxHeight * .47,
       child: ListView.builder(
         itemCount: gameList.length,
-        padding: EdgeInsets.only(left: constraints.maxHeight * .12),
+        padding: EdgeInsets.symmetric(
+          horizontal: constraints.maxHeight * .12,
+        ),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => GameItem(
           height: constraints.maxHeight * .37,
