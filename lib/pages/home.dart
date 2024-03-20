@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:retro/components/game_item_list.dart';
 import 'package:retro/components/list_with_title.dart';
 // import 'package:retro/messages/load_core.pb.dart';
@@ -16,20 +17,44 @@ class HomePage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [
-            Image.network(
-              list[0].bg,
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-              fit: BoxFit.cover,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+            Stack(
               children: [
-                GameItemList(constraints: constraints, gameList: list),
-                ListWithTitle(constraints: constraints, gameList: list)
+                Image.network(
+                  list[0].bg,
+                  width: constraints.maxWidth,
+                  height: constraints.maxHeight,
+                  fit: BoxFit.cover,
+                ).animate().scale(
+                      begin: const Offset(1, 1),
+                      end: const Offset(1.2, 1.2),
+                      duration: const Duration(seconds: 55),
+                    ),
+                Container(
+                  width: constraints.maxWidth,
+                  height: constraints.maxHeight,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.transparent, Colors.black],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                ),
               ],
-            )
+            ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: constraints.maxHeight * .3),
+                  ),
+                  GameItemList(constraints: constraints, gameList: list),
+                  ListWithTitle(constraints: constraints, gameList: list)
+                ],
+              ),
+            ),
           ],
         ),
       ),

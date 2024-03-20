@@ -55,9 +55,11 @@ class _GameItemState extends State<GameItem> {
                 begin: 40,
                 end: -10.2,
                 curve: Curves.easeIn,
-                duration: Duration(milliseconds: 15),
+                duration: Duration(milliseconds: 150),
               )
-              .scale(begin: Offset(0.75, 0.75));
+              .scale(
+                  begin: Offset(0.75, 0.75),
+                  duration: Duration(milliseconds: 150));
           // .moveX(begin: -30.4, end: 1);
         },
       ),

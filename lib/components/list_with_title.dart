@@ -14,26 +14,40 @@ class ListWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text("Games"),
-        SizedBox(
-          width: constraints.maxWidth,
-          height: constraints.maxHeight * .27,
-          child: ListView.builder(
-            itemCount: gameList.length,
-            padding: EdgeInsets.symmetric(
-              horizontal: constraints.maxHeight * .15,
+    return Padding(
+      padding: EdgeInsets.only(top: constraints.maxHeight * .1),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              left: constraints.maxHeight * .17,
+              bottom: constraints.maxHeight * .03,
             ),
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => GameItemNoEffect(
-              height: constraints.maxHeight * .17,
-              width: constraints.maxHeight * .176,
-              data: gameList[index],
+            child: Text(
+              "Super Nintendo Entertainment System",
+              style: TextStyle(fontSize: constraints.maxHeight * .055),
             ),
           ),
-        )
-      ],
+          SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight * .27,
+            child: ListView.builder(
+              itemCount: gameList.length,
+              padding: EdgeInsets.symmetric(
+                horizontal: constraints.maxHeight * .15,
+              ),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => GameItemNoEffect(
+                height: constraints.maxHeight * .17,
+                width: constraints.maxHeight * .176,
+                data: gameList[index],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:retro/models/game_item.dart';
 
 class GameItemNoEffect extends StatefulWidget {
@@ -31,7 +32,7 @@ class _GameItemNoEffectState extends State<GameItemNoEffect> {
       child: Builder(
         builder: (BuildContext context) {
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: 12),
+            margin: const EdgeInsets.symmetric(horizontal: 12),
             foregroundDecoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
                 Radius.circular(12),
@@ -48,7 +49,18 @@ class _GameItemNoEffectState extends State<GameItemNoEffect> {
                 width: widget.width,
               ),
             ),
-          );
+          )
+              .animate(target: Focus.of(context).hasFocus ? 1 : 0)
+              .moveY(
+                begin: 0,
+                end: -10.2,
+                curve: Curves.easeIn,
+                duration: const Duration(milliseconds: 150),
+              )
+              .scale(
+                begin: const Offset(0.89, 0.89),
+                end: const Offset(0.9, 0.9),
+              );
         },
       ),
     );
