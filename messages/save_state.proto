@@ -1,0 +1,10 @@
+syntax = "proto3";
+package save_state;
+
+// [RINF:DART-SIGNAL]
+message SaveStateInput {
+}
+
+// [RINF:RUST-SIGNAL]
+message SaveStateOutput {
+}

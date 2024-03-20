@@ -1,11 +1,13 @@
 //! This `hub` crate is the
 //! entry point of the Rust logic.
-
+extern crate once_cell;
+extern crate tinic;
 // This `tokio` will be used by Rinf.
 // You can replace it with the original `tokio`
 // if you're not targeting the web.
 use tokio_with_wasm::tokio;
 
+mod event;
 mod messages;
 // mod sample_functions;
 
@@ -18,7 +20,13 @@ rinf::write_interface!();
 async fn main() {
     // Repeat `tokio::spawn` anywhere in your code
     // if more concurrent tasks are needed.
-    // tokio::spawn(sample_functions::tell_numbers());
+    event::init();
+
+    tokio::spawn(event::load_core());
+    tokio::spawn(event::load_rom());
+    tokio::spawn(event::pause());
+    tokio::spawn(event::resume());
+
     // tokio::spawn(sample_functions::stream_fractal());
     // tokio::spawn(sample_functions::run_debug_tests());
 }

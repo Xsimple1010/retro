@@ -1,0 +1,11 @@
+syntax = "proto3";
+package load_rom;
+
+// [RINF:DART-SIGNAL]
+message LoadRomInput {
+    string path = 1;
+}
+
+// [RINF:RUST-SIGNAL]
+message LoadRomOutput {
+}

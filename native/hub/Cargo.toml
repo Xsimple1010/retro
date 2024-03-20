@@ -17,3 +17,4 @@ prost = "0.12.3"
 wasm-bindgen = "0.2.91"
 tokio_with_wasm = "0.4.3"
 tinic = { git = "https://github.com/Xsimple1010/tinic.git" }
+once_cell = "1.19.0"

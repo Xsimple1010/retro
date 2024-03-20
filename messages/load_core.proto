@@ -1,0 +1,18 @@
+syntax = "proto3";
+package load_core;
+
+// [RINF:DART-SIGNAL]
+message LoadCoreInput {
+    string path = 1;
+    Paths paths = 2;
+}
+
+// [RINF:RUST-SIGNAL]
+message LoadCoreOutput {
+}
+
+message Paths {
+    string save = 1;
+    string opt = 2;
+    string system = 3;
+}
