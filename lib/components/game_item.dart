@@ -30,16 +30,17 @@ class _GameItemState extends State<GameItem> {
   }
 
   onTap() {
-    LoadCoreInput(
-      path: "C:/WFL/cores/test.dll",
-      paths: Paths(
-        opt: "C:/WFL/opt",
-        save: "C:/WFL/save",
-        system: "C:/WFL/system",
-      ),
-    ).sendSignalToRust(null);
+    focusNode.requestFocus();
+    // LoadCoreInput(
+    //   path: "C:/WFL/cores/test.dll",
+    //   paths: Paths(
+    //     opt: "C:/WFL/opt",
+    //     save: "C:/WFL/save",
+    //     system: "C:/WFL/system",
+    //   ),
+    // ).sendSignalToRust(null);
 
-    LoadRomInput(path: "C:/WFL/roms/teste.sfc").sendSignalToRust(null);
+    // LoadRomInput(path: "C:/WFL/roms/teste.sfc").sendSignalToRust(null);
   }
 
   @override
@@ -48,6 +49,7 @@ class _GameItemState extends State<GameItem> {
       autofocus: true,
       focusNode: focusNode,
       onFocusChange: onFocusChange,
+      onHover: onFocusChange,
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(top: 10),
@@ -67,18 +69,18 @@ class _GameItemState extends State<GameItem> {
             width: widget.width,
           ),
         ),
-      )
-          .animate(target: hasFocus ? 1 : 0)
-          .moveY(
-            begin: 40,
-            end: -10.2,
-            curve: Curves.easeIn,
-            duration: const Duration(milliseconds: 150),
-          )
-          .scale(
-            begin: const Offset(0.75, 0.75),
-            duration: const Duration(milliseconds: 150),
-          ),
-    );
+      ),
+    )
+        .animate(target: hasFocus ? 1 : 0)
+        .moveY(
+          begin: 40,
+          end: -10.2,
+          curve: Curves.easeIn,
+          duration: const Duration(milliseconds: 150),
+        )
+        .scale(
+          begin: const Offset(0.75, 0.75),
+          duration: const Duration(milliseconds: 150),
+        );
   }
 }
