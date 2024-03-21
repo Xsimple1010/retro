@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retro/pages/settings_modal.dart';
 
 class HomeBarConfigs extends StatelessWidget {
   const HomeBarConfigs({super.key});
@@ -14,7 +15,14 @@ class HomeBarConfigs extends StatelessWidget {
           icon: const Icon(Icons.gamepad),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SettingModal(),
+              ),
+            );
+          },
           icon: const Icon(Icons.settings),
         ),
       ],
