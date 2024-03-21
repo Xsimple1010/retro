@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:retro/components/background.dart';
 import 'package:retro/components/game_item_list.dart';
 import 'package:retro/components/home_bar.dart';
 import 'package:retro/components/list_with_title.dart';
@@ -18,31 +18,7 @@ class HomePage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [
-            Stack(
-              children: [
-                Image.network(
-                  list[0].bg,
-                  width: constraints.maxWidth,
-                  height: constraints.maxHeight,
-                  fit: BoxFit.cover,
-                ).animate().scale(
-                      begin: const Offset(1, 1),
-                      end: const Offset(1.2, 1.2),
-                      duration: const Duration(seconds: 47),
-                    ),
-                Container(
-                  width: constraints.maxWidth,
-                  height: constraints.maxHeight,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color.fromARGB(69, 0, 0, 0), Colors.black],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            Background(bg: list[0].bg, constraints: constraints),
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
