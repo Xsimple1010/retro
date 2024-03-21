@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retro/components/game_item_no_effect.dart';
+import 'package:retro/components/game_item_small.dart';
 import 'package:retro/models/game_item.dart';
 
 class ListWithTitle extends StatelessWidget {
@@ -27,7 +27,7 @@ class ListWithTitle extends StatelessWidget {
             ),
             child: Text(
               "Super Nintendo Entertainment System",
-              style: TextStyle(fontSize: constraints.maxHeight * .055),
+              style: TextStyle(fontSize: constraints.maxHeight * .035),
             ),
           ),
           SizedBox(
@@ -39,7 +39,7 @@ class ListWithTitle extends StatelessWidget {
                 horizontal: constraints.maxHeight * .15,
               ),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => GameItemNoEffect(
+              itemBuilder: (context, index) => GameItemSmall(
                 height: constraints.maxHeight * .17,
                 width: constraints.maxHeight * .176,
                 data: gameList[index],

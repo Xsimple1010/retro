@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:retro/models/game_item.dart';
 
-class GameItemNoEffect extends StatefulWidget {
-  const GameItemNoEffect({
+class GameItemSmall extends StatefulWidget {
+  const GameItemSmall({
     super.key,
     required this.height,
     required this.width,
@@ -14,10 +14,10 @@ class GameItemNoEffect extends StatefulWidget {
   final GameItemModel data;
 
   @override
-  State<GameItemNoEffect> createState() => _GameItemNoEffectState();
+  State<GameItemSmall> createState() => _GameItemSmallState();
 }
 
-class _GameItemNoEffectState extends State<GameItemNoEffect> {
+class _GameItemSmallState extends State<GameItemSmall> {
   bool focused = false;
   changeFocus(bool value) {
     setState(() {
@@ -31,22 +31,25 @@ class _GameItemNoEffectState extends State<GameItemNoEffect> {
       autofocus: true,
       child: Builder(
         builder: (BuildContext context) {
-          return Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12),
-            foregroundDecoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(12),
+          return InkWell(
+            onTap: () => Focus.of(context).requestFocus(),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 12),
+              foregroundDecoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(12),
+                ),
+                border: Focus.of(context).hasFocus
+                    ? Border.all(width: 1.4, color: Colors.blue)
+                    : null,
               ),
-              border: Focus.of(context).hasFocus
-                  ? Border.all(width: 1.4, color: Colors.blue)
-                  : null,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                widget.data.img,
-                fit: BoxFit.cover,
-                width: widget.width,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  widget.data.img,
+                  fit: BoxFit.cover,
+                  width: widget.width,
+                ),
               ),
             ),
           )
