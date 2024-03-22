@@ -5,8 +5,10 @@ class SettingsOption extends StatefulWidget {
     super.key,
     required this.icon,
     required this.title,
+    required this.onTab,
   });
 
+  final Function onTab;
   final String title;
   final IconData icon;
 
@@ -22,7 +24,7 @@ class _SettingsOptionState extends State<SettingsOption> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () => widget.onTab(),
         onFocusChange: (value) {
           setState(() {
             focus = value;

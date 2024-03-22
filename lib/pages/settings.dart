@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:retro/components/gamepad_big_button.dart';
 import 'package:retro/components/settings_option.dart';
+import 'package:retro/pages/settings_gamepad.dart';
+
+enum Pages {
+  gamepad,
+  core,
+  paths,
+  storage,
+  video,
+}
 
 class SettingModal extends StatefulWidget {
   const SettingModal({super.key});
@@ -10,6 +18,14 @@ class SettingModal extends StatefulWidget {
 }
 
 class _SettingModalState extends State<SettingModal> {
+  Pages pageSelected = Pages.gamepad;
+
+  setPage(Pages page) {
+    setState(() {
+      pageSelected = page;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,23 +37,32 @@ class _SettingModalState extends State<SettingModal> {
             SizedBox(
               width: 280 + constraints.maxWidth * .03,
               height: constraints.maxHeight,
-              child: const Column(
+              child: Column(
                 children: [
                   SettingsOption(
                     icon: Icons.videogame_asset_rounded,
                     title: "Gamepad's",
+                    onTab: () => setPage(Pages.gamepad),
                   ),
                   SettingsOption(
                     icon: Icons.api_rounded,
                     title: "Núcleos",
+                    onTab: () => setPage(Pages.core),
                   ),
                   SettingsOption(
                     icon: Icons.account_tree_rounded,
                     title: "Caminhos",
+                    onTab: () => setPage(Pages.paths),
                   ),
                   SettingsOption(
                     icon: Icons.storage_rounded,
                     title: "Armazenamento",
+                    onTab: () => setPage(Pages.storage),
+                  ),
+                  SettingsOption(
+                    icon: Icons.display_settings_rounded,
+                    title: "Video",
+                    onTab: () => setPage(Pages.video),
                   ),
                 ],
               ),
@@ -48,48 +73,13 @@ class _SettingModalState extends State<SettingModal> {
                 margin: EdgeInsets.only(
                   left: 30 + constraints.maxWidth * .02,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Dispositivos conectados",
-                      style: TextStyle(
-                        fontSize: 12 + constraints.maxHeight * .03,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(bottom: 20)),
-                    SizedBox(
-                      height: 130 + constraints.maxHeight * .05,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          GamePadBigButton(
-                            width: 120 + constraints.maxHeight * .05,
-                            height: 120 + constraints.maxHeight * .05,
-                          ),
-                          GamePadBigButton(
-                            width: 120 + constraints.maxHeight * .05,
-                            height: 120 + constraints.maxHeight * .05,
-                          ),
-                          GamePadBigButton(
-                            width: 120 + constraints.maxHeight * .05,
-                            height: 120 + constraints.maxHeight * .05,
-                          )
-                        ],
-                      ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(bottom: 50)),
-                    Text(
-                      "Configurar comandos",
-                      style: TextStyle(
-                        fontSize: 12 + constraints.maxHeight * .012,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
+                child: switch (pageSelected) {
+                  Pages.gamepad => SettingGamepad(constraints: constraints),
+                  Pages.core => Text("core"),
+                  Pages.paths => Text("paths"),
+                  Pages.storage => Text("storage"),
+                  Pages.video => Text("video"),
+                },
               ),
             )
           ],
