@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retro/pages/settings_modal.dart';
+import 'package:retro/pages/settings.dart';
 
 class HomeBarConfigs extends StatelessWidget {
   const HomeBarConfigs({super.key});
