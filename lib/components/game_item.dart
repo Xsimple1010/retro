@@ -58,7 +58,10 @@ class _GameItemState extends State<GameItem> {
           borderRadius: const BorderRadius.all(
             Radius.circular(12),
           ),
-          border: hasFocus ? Border.all(width: 1.4, color: Colors.blue) : null,
+          border: hasFocus
+              ? Border.all(
+                  width: 1.4, color: Theme.of(context).colorScheme.primary)
+              : null,
         ),
         width: widget.width,
         height: widget.height,

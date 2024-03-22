@@ -45,7 +45,10 @@ class _GameItemSmallState extends State<GameItemSmall> {
           borderRadius: const BorderRadius.all(
             Radius.circular(12),
           ),
-          border: hasFocus ? Border.all(width: 1.4, color: Colors.blue) : null,
+          border: hasFocus
+              ? Border.all(
+                  width: 1.4, color: Theme.of(context).colorScheme.primary)
+              : null,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
