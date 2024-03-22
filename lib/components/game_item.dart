@@ -51,6 +51,7 @@ class _GameItemState extends State<GameItem> {
       onFocusChange: onFocusChange,
       onHover: onFocusChange,
       onTap: onTap,
+      focusColor: Colors.transparent,
       child: Container(
         margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
