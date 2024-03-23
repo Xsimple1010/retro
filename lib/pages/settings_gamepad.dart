@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/gamepad_big_button.dart';
+import 'package:retro/components/setting_title.dart';
 
 class SettingGamepad extends StatelessWidget {
   const SettingGamepad({
@@ -15,14 +16,10 @@ class SettingGamepad extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          "Dispositivos conectados",
-          style: TextStyle(
-            fontSize: 12 + constraints.maxHeight * .03,
-            fontWeight: FontWeight.bold,
-          ),
+        SettingsTitle(
+          constraintsH: constraints.maxHeight,
+          title: "Dispositivos conectados",
         ),
-        const Padding(padding: EdgeInsets.only(bottom: 20)),
         SizedBox(
           height: 110 + constraints.maxHeight * .05,
           child: ListView(
@@ -45,7 +42,7 @@ class SettingGamepad extends StatelessWidget {
         ),
         const Padding(padding: EdgeInsets.only(bottom: 50)),
         Text(
-          "Configurar comandos",
+          "Personalizar comandos",
           style: TextStyle(
             fontSize: 12 + constraints.maxHeight * .012,
             fontWeight: FontWeight.w400,

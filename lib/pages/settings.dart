@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:retro/components/setting_title.dart';
 import 'package:retro/components/settings_option.dart';
+import 'package:retro/pages/setting_core.dart';
 import 'package:retro/pages/settings_gamepad.dart';
 
 enum Pages {
@@ -37,7 +39,7 @@ class _SettingModalState extends State<SettingModal> {
             SizedBox(
               width: 280 + constraints.maxWidth * .03,
               height: constraints.maxHeight,
-              child: Column(
+              child: ListView(
                 children: [
                   SettingsOption(
                     icon: Icons.videogame_asset_rounded,
@@ -70,16 +72,33 @@ class _SettingModalState extends State<SettingModal> {
             Expanded(
               child: Container(
                 height: constraints.maxHeight,
+                width: constraints.maxWidth -
+                    (280 + constraints.maxWidth * .03) -
+                    (30 + constraints.maxWidth * .02),
                 margin: EdgeInsets.only(
                   left: 30 + constraints.maxWidth * .02,
                 ),
-                child: switch (pageSelected) {
-                  Pages.gamepad => SettingGamepad(constraints: constraints),
-                  Pages.core => Text("core"),
-                  Pages.paths => Text("paths"),
-                  Pages.storage => Text("storage"),
-                  Pages.video => Text("video"),
-                },
+                child: SingleChildScrollView(
+                  child: switch (pageSelected) {
+                    Pages.gamepad => SettingGamepad(constraints: constraints),
+                    Pages.core => SettingCore(
+                        constraintsW: constraints.maxWidth,
+                        constraintsH: constraints.maxHeight,
+                      ),
+                    Pages.paths => SettingsTitle(
+                        constraintsH: constraints.maxHeight,
+                        title: "Caminhos",
+                      ),
+                    Pages.storage => SettingsTitle(
+                        constraintsH: constraints.maxHeight,
+                        title: "Armazenamento",
+                      ),
+                    Pages.video => SettingsTitle(
+                        constraintsH: constraints.maxHeight,
+                        title: "Video",
+                      ),
+                  },
+                ),
               ),
             )
           ],
