@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:retro/components/settings_option.dart';
-import 'package:retro/providers/db_provider.dart';
 
 class AddArtsPage extends StatefulWidget {
   const AddArtsPage({
@@ -17,9 +14,6 @@ class _AddArtsPageState extends State<AddArtsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final db = context.read<DbProvider>();
-    final roms = db.gameDao().findAll();
-
     return Scaffold(
       appBar: AppBar(title: const Text("Editar infamações")),
       body: LayoutBuilder(
@@ -30,22 +24,22 @@ class _AddArtsPageState extends State<AddArtsPage> {
               height: constraints.maxHeight,
               child: ListView(
                 children: [
-                  FutureBuilder(
-                    future: roms,
-                    builder: (context, snapshot) => ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.length,
-                      itemBuilder: (context, index) => SettingsOption(
-                        icon: Icons.abc,
-                        title: snapshot.data?[index].name ?? "Arquivo invalido",
-                        onTab: () => {
-                          setState(() {
-                            selectedIndex = index;
-                          })
-                        },
-                      ),
-                    ),
-                  ),
+                  // FutureBuilder(
+                  //   future: roms,
+                  //   builder: (context, snapshot) => ListView.builder(
+                  //     shrinkWrap: true,
+                  //     itemCount: snapshot.data?.length,
+                  //     itemBuilder: (context, index) => SettingsOption(
+                  //       icon: Icons.abc,
+                  //       title: snapshot.data?[index].name ?? "Arquivo invalido",
+                  //       onTab: () => {
+                  //         setState(() {
+                  //           selectedIndex = index;
+                  //         })
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
