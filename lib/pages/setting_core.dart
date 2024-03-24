@@ -14,53 +14,50 @@ class SettingCore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 30 + constraintsW * .02),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SettingsTitle(
-            constraintsH: constraintsH,
-            title: "Núcleos",
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SettingsTitle(
+          constraintsH: constraintsH,
+          title: "Núcleos",
+        ),
+        GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: constraintsW ~/ 500,
+            childAspectRatio: 1,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 5,
+            mainAxisExtent: 100,
           ),
-          GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: constraintsW ~/ 500,
-              childAspectRatio: 1,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 5,
-              mainAxisExtent: 100,
+          shrinkWrap: true,
+          children: [
+            CoreItem(
+              title: "bsnes2014_balanced_libretro",
+              onTab: () {},
             ),
-            shrinkWrap: true,
-            children: [
-              CoreItem(
-                title: "bsnes2014_balanced_libretro",
-                onTab: () {},
-              ),
-              CoreItem(
-                title: "bsnes2014_balanced_libretro",
-                onTab: () {},
-              ),
-              CoreItem(
-                title: "bsnes2014_balanced_libretro",
-                onTab: () {},
-              ),
-              CoreItem(
-                title: "bsnes2014_balanced_libretro",
-                onTab: () {},
-              ),
-              CoreItem(
-                title: "bsnes2014_balanced_libretro",
-                onTab: () {},
-              ),
-              CoreItem(
-                title: "bsnes2014_balanced_libretro",
-                onTab: () {},
-              ),
-            ],
-          ),
-        ],
-      ),
+            CoreItem(
+              title: "bsnes2014_balanced_libretro",
+              onTab: () {},
+            ),
+            CoreItem(
+              title: "bsnes2014_balanced_libretro",
+              onTab: () {},
+            ),
+            CoreItem(
+              title: "bsnes2014_balanced_libretro",
+              onTab: () {},
+            ),
+            CoreItem(
+              title: "bsnes2014_balanced_libretro",
+              onTab: () {},
+            ),
+            CoreItem(
+              title: "bsnes2014_balanced_libretro",
+              onTab: () {},
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

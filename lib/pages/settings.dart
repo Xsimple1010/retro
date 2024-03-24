@@ -77,6 +77,7 @@ class _SettingModalState extends State<SettingModal> {
                     (30 + constraints.maxWidth * .02),
                 margin: EdgeInsets.only(
                   left: 30 + constraints.maxWidth * .02,
+                  right: 30 + constraints.maxWidth * .02,
                 ),
                 child: SingleChildScrollView(
                   child: switch (pageSelected) {

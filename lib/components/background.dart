@@ -1,15 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:retro/providers/change_background.dart';
+import 'package:provider/provider.dart';
 
 class Background extends StatefulWidget {
   const Background({
     super.key,
-    required this.bg,
     required this.constraints,
   });
 
   final BoxConstraints constraints;
-  final String bg;
 
   @override
   State<Background> createState() => _BackgroundState();
@@ -18,24 +20,39 @@ class Background extends StatefulWidget {
 class _BackgroundState extends State<Background> {
   @override
   Widget build(BuildContext context) {
+    final bg = context.watch<BgProvider>();
+
     return Stack(
       children: [
-        Image.network(
-          widget.bg,
-          width: widget.constraints.maxWidth,
-          height: widget.constraints.maxHeight,
-          fit: BoxFit.cover,
-        ).animate().scale(
-              begin: const Offset(1, 1),
-              end: const Offset(1.2, 1.2),
-              duration: const Duration(seconds: 47),
-            ),
+        Visibility(
+          visible: bg.path.isNotEmpty,
+          child: Image.file(
+            File(bg.path),
+            width: widget.constraints.maxWidth,
+            height: widget.constraints.maxHeight,
+            fit: BoxFit.cover,
+          )
+              .animate(
+                onComplete: (controller) => controller.repeat(),
+              )
+              .scale(
+                begin: const Offset(1, 1),
+                end: const Offset(1.2, 1.2),
+                duration: const Duration(seconds: 50),
+              )
+              .then()
+              .scale(
+                begin: const Offset(1.2, 1.2),
+                end: const Offset(1, 1),
+                duration: const Duration(seconds: 50),
+              ),
+        ),
         Container(
           width: widget.constraints.maxWidth,
           height: widget.constraints.maxHeight,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color.fromARGB(69, 0, 0, 0), Colors.black],
+              colors: [Color.fromARGB(38, 0, 0, 0), Colors.black],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),

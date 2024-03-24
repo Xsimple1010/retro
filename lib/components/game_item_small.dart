@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:retro/models/game_item.dart';
+import 'package:retro/models/game_model.dart';
 
 class GameItemSmall extends StatefulWidget {
   const GameItemSmall({
@@ -11,7 +13,7 @@ class GameItemSmall extends StatefulWidget {
   });
   final double width;
   final double height;
-  final GameItemModel data;
+  final Game data;
 
   @override
   State<GameItemSmall> createState() => _GameItemSmallState();
@@ -52,8 +54,8 @@ class _GameItemSmallState extends State<GameItemSmall> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            widget.data.img,
+          child: Image.file(
+            File(widget.data.img),
             fit: BoxFit.cover,
             width: widget.width,
           ),

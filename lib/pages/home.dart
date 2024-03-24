@@ -5,12 +5,12 @@ import 'package:retro/components/home_bar.dart';
 import 'package:retro/components/list_with_title.dart';
 // import 'package:retro/messages/load_core.pb.dart';
 // import 'package:retro/messages/load_rom.pb.dart';
-import 'package:retro/models/game_item.dart';
+import 'package:retro/models/game_model.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  final List<GameItemModel> list = getGameList();
+  final List<Game> list = getGameList();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [
-            Background(bg: list[0].bg, constraints: constraints),
+            Background(constraints: constraints),
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,

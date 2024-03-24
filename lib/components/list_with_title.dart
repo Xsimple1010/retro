@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/game_item_small.dart';
-import 'package:retro/models/game_item.dart';
+import 'package:retro/models/game_model.dart';
 
 class ListWithTitle extends StatelessWidget {
   const ListWithTitle({
@@ -10,7 +10,7 @@ class ListWithTitle extends StatelessWidget {
   });
 
   final BoxConstraints constraints;
-  final List<GameItemModel> gameList;
+  final List<Game> gameList;
 
   @override
   Widget build(BuildContext context) {
