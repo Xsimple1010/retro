@@ -3,14 +3,10 @@ import 'package:retro/components/background.dart';
 import 'package:retro/components/game_item_list.dart';
 import 'package:retro/components/home_bar.dart';
 import 'package:retro/components/list_with_title.dart';
-// import 'package:retro/messages/load_core.pb.dart';
-// import 'package:retro/messages/load_rom.pb.dart';
-import 'package:retro/models/game_model.dart';
+import 'package:retro/database/models/game_model.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-
-  final List<Game> list = getGameList();
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +26,8 @@ class HomePage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: constraints.maxHeight * .2),
                   ),
-                  GameItemList(constraints: constraints, gameList: list),
-                  ListWithTitle(constraints: constraints, gameList: list),
+                  // GameItemList(constraints: constraints, gameList: list),
+                  // ListWithTitle(constraints: constraints, gameList: list),
                 ],
               ),
             ),

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/models/game_model.dart';
+import 'package:retro/database/models/game_model.dart';
 import 'package:retro/providers/change_background.dart';
 
 class GameItem extends StatefulWidget {
@@ -27,7 +27,7 @@ class _GameItemState extends State<GameItem> {
 
   void onFocusChange(bool focus, BgProvider bg) {
     if (focus) {
-      bg.set(widget.data.bg);
+      // bg.set(widget.data.bg);
     }
 
     setState(() {
@@ -78,11 +78,12 @@ class _GameItemState extends State<GameItem> {
         height: widget.height,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.file(
-            File(widget.data.img),
-            fit: BoxFit.cover,
-            width: widget.width,
-          ),
+
+          // child: Image.file(
+          //   File(widget.data.img),
+          //   fit: BoxFit.cover,
+          //   width: widget.width,
+          // ),
         ),
       ),
     )

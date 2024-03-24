@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:retro/models/game_model.dart';
+import 'package:retro/database/models/game_model.dart';
 
 class GameItemSmall extends StatefulWidget {
   const GameItemSmall({
@@ -52,14 +52,15 @@ class _GameItemSmallState extends State<GameItemSmall> {
                   width: 1.4, color: Theme.of(context).colorScheme.primary)
               : null,
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.file(
-            File(widget.data.img),
-            fit: BoxFit.cover,
-            width: widget.width,
-          ),
-        ),
+        child: Text("data"),
+        // child: ClipRRect(
+        //   borderRadius: BorderRadius.circular(12),
+        //   child: Image.file(
+        //     File(widget.data.img),
+        //     fit: BoxFit.cover,
+        //     width: widget.width,
+        //   ),
+        // ),
       ),
     )
         .animate(target: hasFocus ? 1 : 0)

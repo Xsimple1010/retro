@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retro/database/db.dart';
+import 'package:retro/database/models/game_model.dart';
 import 'package:retro/pages/first_init.dart';
 import 'package:retro/pages/home.dart';
 import 'package:retro/providers/change_background.dart';
@@ -8,6 +10,18 @@ import './messages/generated.dart';
 
 void main() async {
   await initializeRust();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final database = AppDatabase();
+
+  await database.into(database.game).insert(
+        GameCompanion.insert(
+          name: "We can now write queries and define our own tables.",
+          path: "ter",
+        ),
+      );
+
+  final allItems = await database.select(database.game).get();
 
   AppDirManager appDir = AppDirManager();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/game_item_small.dart';
-import 'package:retro/models/game_model.dart';
+import 'package:retro/database/models/game_model.dart';
 
 class ListWithTitle extends StatelessWidget {
   const ListWithTitle({

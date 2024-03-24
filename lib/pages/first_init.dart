@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/models/game_model.dart';
+import 'package:retro/database/models/game_model.dart';
 import 'package:retro/pages/add_arts.dart';
 import 'package:retro/tools/app_dir_manager.dart';
 
