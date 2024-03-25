@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/game_item.dart';
-import 'package:retro/database/models/game_model.dart';
+import 'package:retro/database/db.dart';
 
 class GameItemList extends StatelessWidget {
   const GameItemList({
@@ -10,7 +10,7 @@ class GameItemList extends StatelessWidget {
   });
 
   final BoxConstraints constraints;
-  final List<Game> gameList;
+  final List<GameData> gameList;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class GameItemList extends StatelessWidget {
           height: constraints.maxHeight * .37,
           width: constraints.maxHeight * .306,
           data: gameList[index],
+          enableAnimation: true,
         ),
       ),
     );

@@ -48,7 +48,7 @@ class _SettingsOptionState extends State<SettingsOption> {
                   fontWeight: FontWeight.w600,
                   fontSize: 13,
                 ),
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
