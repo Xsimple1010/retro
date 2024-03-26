@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
+import 'package:retro/components/game_item_not_img.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/providers/change_background.dart';
 
@@ -13,12 +14,14 @@ class GameItem extends StatefulWidget {
     required this.width,
     required this.data,
     required this.enableAnimation,
+    required this.onTab,
   });
 
   final double width;
   final double height;
   final GameData data;
   final bool enableAnimation;
+  final Function onTab;
 
   @override
   State<GameItem> createState() => _GameItemState();
@@ -40,6 +43,7 @@ class _GameItemState extends State<GameItem> {
 
   onTap(BgProvider bg) {
     focusNode.requestFocus();
+    widget.onTab();
 
     // LoadCoreInput(
     //   path: "C:/WFL/cores/test.dll",
@@ -87,23 +91,10 @@ class _GameItemState extends State<GameItem> {
         height: widget.height,
         child: Visibility(
           visible: widget.data.img?.isNotEmpty ?? false,
-          replacement: Container(
-            decoration: const BoxDecoration(
-              borderRadius: borderRadius,
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 22, 146, 155),
-                  Color.fromARGB(255, 67, 32, 197),
-                ],
-              ),
-            ),
-            child: Center(
-              child: IconButton(
-                iconSize: 50,
-                onPressed: () {},
-                icon: Icon(Icons.edit),
-              ),
-            ),
+          replacement: GameItemNotImg(
+            height: widget.height,
+            width: widget.width,
+            child: const Icon(Icons.edit),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),

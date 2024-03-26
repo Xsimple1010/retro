@@ -24,6 +24,7 @@ class GameItemList extends StatelessWidget {
           horizontal: constraints.maxHeight * .12,
         ),
         itemBuilder: (context, index) => GameItem(
+          onTab: () {},
           height: constraints.maxHeight * .37,
           width: constraints.maxHeight * .306,
           data: gameList[index],

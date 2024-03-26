@@ -42,14 +42,17 @@ class _SettingsOptionState extends State<SettingsOption> {
             children: [
               Icon(widget.icon),
               const Padding(padding: EdgeInsets.only(right: 12)),
-              Text(
-                widget.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
+              SizedBox(
+                width: 150,
+                child: Text(
+                  widget.title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

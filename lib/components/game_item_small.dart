@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:retro/database/models/game_model.dart';
+import 'package:retro/components/game_item_not_img.dart';
+import 'package:retro/database/db.dart';
 
 class GameItemSmall extends StatefulWidget {
   const GameItemSmall({
@@ -13,7 +14,7 @@ class GameItemSmall extends StatefulWidget {
   });
   final double width;
   final double height;
-  final Game data;
+  final GameData data;
 
   @override
   State<GameItemSmall> createState() => _GameItemSmallState();
@@ -52,15 +53,22 @@ class _GameItemSmallState extends State<GameItemSmall> {
                   width: 1.4, color: Theme.of(context).colorScheme.primary)
               : null,
         ),
-        child: Text("data"),
-        // child: ClipRRect(
-        //   borderRadius: BorderRadius.circular(12),
-        //   child: Image.file(
-        //     File(widget.data.img),
-        //     fit: BoxFit.cover,
-        //     width: widget.width,
-        //   ),
-        // ),
+        child: Visibility(
+          visible: widget.data.img?.isNotEmpty ?? false,
+          replacement: GameItemNotImg(
+            height: widget.height,
+            width: widget.width,
+            child: const Icon(Icons.edit),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.file(
+              File(widget.data.img ?? ""),
+              fit: BoxFit.cover,
+              width: widget.width,
+            ),
+          ),
+        ),
       ),
     )
         .animate(target: hasFocus ? 1 : 0)
