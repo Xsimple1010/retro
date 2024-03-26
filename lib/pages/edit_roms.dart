@@ -1,3 +1,5 @@
+import 'package:drift/drift.dart' as drift;
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retro/components/background_card.dart';
@@ -6,38 +8,72 @@ import 'package:retro/components/settings_option.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/providers/database_provider.dart';
 
-class AddArtsPage extends StatefulWidget {
-  AddArtsPage({
+class EditRoms extends StatefulWidget {
+  const EditRoms({
     super.key,
   });
 
   @override
-  State<AddArtsPage> createState() => _AddArtsPageState();
+  State<EditRoms> createState() => _EditRomsState();
 }
 
-class _AddArtsPageState extends State<AddArtsPage> {
+class _EditRomsState extends State<EditRoms> {
   int selectedIndex = 0;
 
   List<GameData> list = [];
 
-  void updateList(AppDatabase db) async {
-    final newList = await db.select(db.game).get();
+  Future<void> updateList(DataBaseProvider db) async {
+    final newList = await db.getGames();
 
     setState(() {
       list = newList;
     });
   }
 
+  Future<void> updateGameImg(DataBaseProvider db, int id) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['.png', '.jpg'],
+    );
+
+    if (result != null) {
+      await db.update(
+        id,
+        GameCompanion(
+          img: drift.Value(result.files.single.path!),
+        ),
+      );
+      await updateList(db);
+    }
+  }
+
+  Future<void> updateGameBg(DataBaseProvider db, int id) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['.png', '.jpg'],
+    );
+
+    if (result != null) {
+      await db.update(
+        id,
+        GameCompanion(
+          bg: drift.Value(result.files.single.path!),
+        ),
+      );
+      await updateList(db);
+    }
+  }
+
   @override
   void initState() {
     final db = context.read<DataBaseProvider>();
 
-    updateList(db.database);
+    updateList(db);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final db = context.read<DataBaseProvider>();
+
     return Scaffold(
       appBar: AppBar(title: const Text("Editar infamações")),
       body: Visibility(
@@ -80,12 +116,16 @@ class _AddArtsPageState extends State<AddArtsPage> {
                               data: list[selectedIndex],
                               width: constraints.maxHeight * .8,
                               height: constraints.maxHeight * .42,
+                              onTab: () =>
+                                  updateGameBg(db, list[selectedIndex].id),
                             ),
                             GameItem(
                               height: constraints.maxHeight * .52,
                               width: constraints.maxHeight * .356,
                               data: list[selectedIndex],
                               enableAnimation: false,
+                              onTab: () =>
+                                  updateGameImg(db, list[selectedIndex].id),
                             )
                           ],
                         ),
@@ -122,21 +162,21 @@ class _AddArtsPageState extends State<AddArtsPage> {
                                           2 + constraints.maxHeight * .015),
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "Screen shorts",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "Saves",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "Núcleo associado",
                                 style: TextStyle(
                                   fontSize: 20,

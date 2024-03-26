@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/setting_title.dart';
 import 'package:retro/components/settings_option.dart';
+import 'package:retro/pages/edit_roms.dart';
 import 'package:retro/pages/setting_core.dart';
 import 'package:retro/pages/settings_gamepad.dart';
 
@@ -65,6 +66,16 @@ class _SettingModalState extends State<SettingModal> {
                     icon: Icons.display_settings_rounded,
                     title: "Video",
                     onTab: () => setPage(Pages.video),
+                  ),
+                  SettingsOption(
+                    icon: Icons.edit,
+                    title: "Editar roms",
+                    onTab: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EditRoms(),
+                      ),
+                    ),
                   ),
                 ],
               ),

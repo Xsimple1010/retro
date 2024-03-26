@@ -37,15 +37,10 @@ class _FirstInitPageState extends State<FirstInitPage> {
         // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(
-          builder: (context) => AddArtsPage(),
+          builder: (context) => const EditRoms(),
         ),
       );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
