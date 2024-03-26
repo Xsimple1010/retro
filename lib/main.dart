@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/database/db.dart';
-import 'package:retro/pages/add_arts.dart';
 import 'package:retro/pages/first_init.dart';
 import 'package:retro/pages/home.dart';
 import 'package:retro/providers/change_background.dart';
@@ -14,20 +12,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool firstInit = true;
 
-  final database = AppDatabase();
-
-  final roms = await database.select(database.game).get();
+  final db = DataBaseProvider();
+  final roms = await db.getGames();
 
   AppDirManager appDir = AppDirManager();
-  bool gameDirExiste = await appDir.valideUseGameDir();
+  final gameDirExiste = await appDir.getUseGameDir();
 
-  if (roms.isNotEmpty && gameDirExiste) {
+  if (roms.isNotEmpty && gameDirExiste.alreadyExist) {
     firstInit = false;
   }
 
   runApp(MyApp(
     firstInit: firstInit,
-    database: database,
+    databaseProvider: db,
   ));
 }
 
@@ -35,10 +32,10 @@ class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
     required this.firstInit,
-    required this.database,
+    required this.databaseProvider,
   });
 
-  final AppDatabase database;
+  final DataBaseProvider databaseProvider;
   final bool firstInit;
 
   @override
@@ -48,17 +45,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<BgProvider>(
           create: (_) => BgProvider(),
         ),
-        ChangeNotifierProvider<DataBaseProvider>(
-          create: (_) => DataBaseProvider(database: database),
+        ChangeNotifierProvider.value(
+          value: databaseProvider,
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Retro Demo',
         theme: ThemeData(
           colorScheme: const ColorScheme.dark(),
           useMaterial3: true,
         ),
-        home: firstInit ? const FirstInitPage() : HomePage(),
+        home: firstInit ? const FirstInitPage() : const HomePage(),
       ),
     );
   }

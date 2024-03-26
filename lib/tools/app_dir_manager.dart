@@ -8,6 +8,13 @@ enum SubFold {
   cores,
 }
 
+class GameDirInfo {
+  final bool alreadyExist;
+  final Directory dir;
+
+  GameDirInfo({required this.dir, required this.alreadyExist});
+}
+
 class AppDirManager {
   final List<String> _subs = ["opt", "save", "system", "arts", "cores"];
 
@@ -56,24 +63,36 @@ class AppDirManager {
     return romsDir.listSync();
   }
 
-  Future<bool> valideUseGameDir() async {
+  Future<GameDirInfo> getUseGameDir() async {
     Directory rootDir = getRootAppDir();
 
-    bool isValide = false;
+    bool alreadyExist = false;
 
     File file = File("${rootDir.path}${Platform.pathSeparator}$fileGameDir");
+    alreadyExist = await file.exists();
 
-    if (await file.exists()) {
+    if (alreadyExist) {
       String content = await file.readAsString();
 
       if (content.isNotEmpty) {
         Directory useGameDir = Directory(content);
 
-        isValide = await useGameDir.exists();
+        if (!(await useGameDir.exists())) {
+          alreadyExist = false;
+        }
+      } else {
+        alreadyExist = false;
       }
     }
 
-    return isValide;
+    if (!alreadyExist) {
+      await file.create();
+    }
+
+    return GameDirInfo(
+      dir: Directory(file.path),
+      alreadyExist: alreadyExist,
+    );
   }
 
   Future<void> updateUseGameDir(String path) async {
@@ -83,9 +102,9 @@ class AppDirManager {
 
     if (!(await file.exists())) {
       await file.create();
-
-      await file.writeAsString(path);
     }
+
+    await file.writeAsString(path);
   }
 
   Directory getSubFold(SubFold sub) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:retro/database/db.dart';
-import 'package:retro/pages/add_arts.dart';
+import 'package:retro/pages/edit_roms.dart';
 import 'package:retro/providers/database_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
 
@@ -15,23 +15,19 @@ class FirstInitPage extends StatefulWidget {
 }
 
 class _FirstInitPageState extends State<FirstInitPage> {
-  selectGameDir(AppDatabase database) async {
+  selectGameDir(DataBaseProvider db) async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
+    await db.clear();
 
     if (selectedDirectory != null && selectedDirectory.isNotEmpty) {
       AppDirManager appDir = AppDirManager();
+
+      await appDir.getUseGameDir();
       await appDir.updateUseGameDir(selectedDirectory);
 
-      // List<FileSystemEntity> roms = appDir.getRoms();
+      List<FileSystemEntity> roms = appDir.getRoms();
 
-      // for (var rom in roms) {
-      //   await database.into(database.game).insert(
-      //         GameCompanion.insert(
-      //           name: appDir.getName(rom.path),
-      //           path: rom.path,
-      //         ),
-      //       );
-      // }
+      await db.insertIfNotExist(roms);
 
       Navigator.push(
         // ignore: use_build_context_synchronously
@@ -72,7 +68,7 @@ class _FirstInitPageState extends State<FirstInitPage> {
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
-          onPressed: () => selectGameDir(db.database),
+          onPressed: () => selectGameDir(db),
           child: const Icon(Icons.add),
         ),
       ),
