@@ -49,7 +49,7 @@ class BgCard extends StatelessWidget {
           child: ClipRRect(
             borderRadius: borderRadius,
             child: Image.file(
-              File(data.img ?? ""),
+              File(data.bg ?? ""),
               fit: BoxFit.cover,
               width: width,
             ),
