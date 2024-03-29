@@ -7,10 +7,12 @@ class GameItemList extends StatelessWidget {
     super.key,
     required this.constraints,
     required this.gameList,
+    required this.onTab,
   });
 
   final BoxConstraints constraints;
   final List<GameData> gameList;
+  final void Function(GameData) onTab;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class GameItemList extends StatelessWidget {
           horizontal: constraints.maxHeight * .12,
         ),
         itemBuilder: (context, index) => GameItem(
-          onTab: () {},
+          onTab: onTab,
           height: constraints.maxHeight * .37,
           width: constraints.maxHeight * .306,
           data: gameList[index],

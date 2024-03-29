@@ -94,8 +94,7 @@ class _SettingModalState extends State<SettingModal> {
                   child: switch (pageSelected) {
                     Pages.gamepad => SettingGamepad(constraints: constraints),
                     Pages.core => SettingCore(
-                        constraintsW: constraints.maxWidth,
-                        constraintsH: constraints.maxHeight,
+                        constraints: constraints,
                       ),
                     Pages.paths => SettingsTitle(
                         constraintsH: constraints.maxHeight,

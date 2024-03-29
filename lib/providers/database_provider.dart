@@ -13,7 +13,19 @@ class DataBaseProvider with ChangeNotifier {
   }
 
   Future<List<GameData>> getGames() async {
-    return await _database.select(_database.game).get();
+    final list = await _database.select(_database.game).get();
+
+    return list;
+  }
+
+  Future<List<RetroCoreData>> getCores() async {
+    return await _database.select(_database.retroCore).get();
+  }
+
+  Future<RetroCoreData?> findOneCore(int id) async {
+    return await (_database.select(_database.retroCore)
+          ..where((tbl) => tbl.id.equals(id)))
+        .getSingleOrNull();
   }
 
   void insertGame(FileSystemEntity data) async {
@@ -23,6 +35,8 @@ class DataBaseProvider with ChangeNotifier {
             path: data.path,
           ),
         );
+
+    notifyListeners();
   }
 
   Future<void> insertIfNotExist(List<FileSystemEntity> files) async {
@@ -33,8 +47,6 @@ class DataBaseProvider with ChangeNotifier {
             ..where((t) => t.name.equals(name)))
           .getSingleOrNull();
 
-      print(gameInDb);
-
       if (gameInDb?.path != file.path) {
         await _database.into(_database.game).insert(
               GameCompanion.insert(
@@ -42,13 +54,41 @@ class DataBaseProvider with ChangeNotifier {
                 path: file.path,
               ),
             );
+
+        notifyListeners();
       }
     }
   }
 
+  Future<void> insertCoreIfNotExist(File file) async {
+    final name = appDir.getName(file.path);
+
+    final coreInDb = await (_database.select(_database.retroCore)
+          ..where((t) => t.name.equals(name)))
+        .getSingleOrNull();
+
+    if (coreInDb?.path != file.path) {
+      await _database.into(_database.retroCore).insert(
+            RetroCoreCompanion.insert(
+              name: name,
+              path: file.path,
+              license: "license",
+              extensions: "extensions",
+              metadata: "metadata",
+            ),
+          );
+
+      notifyListeners();
+    }
+  }
+
   Future<int> update(int id, GameCompanion game) async {
-    return await (_database.update(_database.game)
+    int count = await (_database.update(_database.game)
           ..where((tbl) => tbl.id.equals(id)))
         .write(game);
+
+    notifyListeners();
+
+    return count;
   }
 }

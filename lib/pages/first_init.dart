@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/database/db.dart';
 import 'package:retro/pages/edit_roms.dart';
+import 'package:retro/pages/home.dart';
 import 'package:retro/providers/database_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
 
@@ -15,6 +15,8 @@ class FirstInitPage extends StatefulWidget {
 }
 
 class _FirstInitPageState extends State<FirstInitPage> {
+  bool romsIsLoaded = false;
+
   selectGameDir(DataBaseProvider db) async {
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath();
     await db.clear();
@@ -25,17 +27,13 @@ class _FirstInitPageState extends State<FirstInitPage> {
       await appDir.getUseGameDir();
       await appDir.updateUseGameDir(selectedDirectory);
 
-      List<FileSystemEntity> roms = appDir.getRoms();
+      List<FileSystemEntity> roms = await appDir.getRoms();
 
       await db.insertIfNotExist(roms);
 
-      Navigator.push(
-        // ignore: use_build_context_synchronously
-        context,
-        MaterialPageRoute(
-          builder: (context) => const EditRoms(),
-        ),
-      );
+      setState(() {
+        romsIsLoaded = true;
+      });
     }
   }
 
@@ -44,32 +42,68 @@ class _FirstInitPageState extends State<FirstInitPage> {
     final db = context.read<DataBaseProvider>();
 
     return Scaffold(
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Bem-vindo",
-              style: TextStyle(
-                fontSize: 60,
-                fontWeight: FontWeight.w600,
+      body: LayoutBuilder(
+        builder: (context, constraints) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Bem-vindo",
+                style: TextStyle(
+                  fontSize: constraints.maxHeight * .17,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            Text(
-              "Antes de iniciar mostre onde suas roms estão",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w300,
+              Text(
+                "Antes de iniciar mostre onde suas roms estão",
+                style: TextStyle(
+                  fontSize: constraints.maxHeight * .032,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 50),
-        child: FloatingActionButton(
-          onPressed: () => selectGameDir(db),
-          child: const Icon(Icons.add),
+        child: Visibility(
+          visible: romsIsLoaded,
+          replacement: FloatingActionButton(
+            onPressed: () => selectGameDir(db),
+            child: const Icon(Icons.add),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const EditRoms(),
+                    ),
+                  );
+                },
+                child: const Text("Editar as roms"),
+              ),
+              IconButton(
+                onPressed: () => selectGameDir(db),
+                icon: const Icon(Icons.folder_open_sharp),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.arrow_forward),
+              )
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

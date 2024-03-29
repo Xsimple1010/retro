@@ -48,7 +48,7 @@ class _CoreItemState extends State<CoreItem> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Text(
-                    "33kb",
+                    "GPLv3",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,

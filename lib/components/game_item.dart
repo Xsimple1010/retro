@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:retro/components/game_item_not_img.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/providers/change_background.dart';
+import 'package:retro/providers/database_provider.dart';
 
 class GameItem extends StatefulWidget {
   const GameItem({
@@ -21,7 +22,7 @@ class GameItem extends StatefulWidget {
   final double height;
   final GameData data;
   final bool enableAnimation;
-  final Function onTab;
+  final void Function(GameData) onTab;
 
   @override
   State<GameItem> createState() => _GameItemState();
@@ -41,20 +42,9 @@ class _GameItemState extends State<GameItem> {
     });
   }
 
-  onTap(BgProvider bg) {
+  Future<void> onTap(DataBaseProvider db) async {
     focusNode.requestFocus();
-    widget.onTab();
-
-    // LoadCoreInput(
-    //   path: "C:/WFL/cores/test.dll",
-    //   paths: Paths(
-    //     opt: "C:/WFL/opt",
-    //     save: "C:/WFL/save",
-    //     system: "C:/WFL/system",
-    //   ),
-    // ).sendSignalToRust(null);
-
-    // LoadRomInput(path: "C:/WFL/roms/teste.sfc").sendSignalToRust(null);
+    widget.onTab(widget.data);
   }
 
   @override
@@ -69,16 +59,18 @@ class _GameItemState extends State<GameItem> {
       Radius.circular(12),
     );
 
+    final db = context.read<DataBaseProvider>();
+
     return InkWell(
       autofocus: true,
       focusNode: focusNode,
       onFocusChange: (value) => onFocusChange(value, bg),
       onHover: (value) => onFocusChange(value, bg),
-      onTap: () => onTap(bg),
+      onTap: () async => await onTap(db),
       borderRadius: borderRadius,
       focusColor: Colors.transparent,
       child: Container(
-        // margin: const EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
           borderRadius: borderRadius,
           border: widget.enableAnimation

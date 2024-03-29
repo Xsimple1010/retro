@@ -63,3 +63,4 @@ pub async fn resume() {
         }
     }
 }
+pub async fn get_gamepad_list() {}

@@ -1,12 +1,8 @@
 import 'dart:io';
 
-enum SubFold {
-  opt,
-  save,
-  system,
-  arts,
-  cores,
-}
+import 'package:path_provider/path_provider.dart';
+
+enum SubFold { opt, save, system, arts, cores, infos, temps }
 
 class GameDirInfo {
   final bool alreadyExist;
@@ -16,7 +12,15 @@ class GameDirInfo {
 }
 
 class AppDirManager {
-  final List<String> _subs = ["opt", "save", "system", "arts", "cores"];
+  final List<String> _subs = [
+    "opt",
+    "save",
+    "system",
+    "arts",
+    "cores",
+    "infos",
+    "temps"
+  ];
 
   final String fileGameDir = "game_dir.txt";
 
@@ -24,7 +28,7 @@ class AppDirManager {
     return Directory("$root${Platform.pathSeparator}$sub");
   }
 
-  void _createSubDirs(String root) {
+  Future<void> _createSubDirs(String root) async {
     for (var sub in _subs) {
       Directory subF = _makeDirPath(root, sub);
 
@@ -34,26 +38,29 @@ class AppDirManager {
     }
   }
 
-  List<Directory> getSubs() {
-    Directory root = getRootAppDir();
+  Future<Directory> getRootDir() async {
+    Directory root = await getApplicationDocumentsDirectory();
 
-    return _subs.map((sub) => _makeDirPath(root.path, sub)).toList();
-  }
+    Directory rootDir = Directory("${root.path}${Platform.pathSeparator}retro");
 
-  Directory getRootAppDir() {
-    String root = "";
-
-    if (Platform.isWindows) {
-      root = "C:${Platform.pathSeparator}retro";
+    if (!(await rootDir.exists())) {
+      await rootDir.create();
     }
 
-    _createSubDirs(root);
+    await _createSubDirs(rootDir.path);
 
-    return Directory(root);
+    return rootDir;
   }
 
-  List<FileSystemEntity> getRoms() {
-    Directory rootDir = getRootAppDir();
+  Future<List<Directory>> getSubs() async {
+    Directory rootDir = await getRootDir();
+
+    return _subs.map((sub) => _makeDirPath(rootDir.path, sub)).toList();
+  }
+
+  Future<List<FileSystemEntity>> getRoms() async {
+    Directory rootDir = await getRootDir();
+
     File file = File("${rootDir.path}${Platform.pathSeparator}$fileGameDir");
 
     String path = file.readAsStringSync();
@@ -64,7 +71,7 @@ class AppDirManager {
   }
 
   Future<GameDirInfo> getUseGameDir() async {
-    Directory rootDir = getRootAppDir();
+    Directory rootDir = await getRootDir();
 
     bool alreadyExist = false;
 
@@ -96,7 +103,7 @@ class AppDirManager {
   }
 
   Future<void> updateUseGameDir(String path) async {
-    Directory rootDir = getRootAppDir();
+    Directory rootDir = await getRootDir();
 
     File file = File("${rootDir.path}${Platform.pathSeparator}$fileGameDir");
 
@@ -107,15 +114,17 @@ class AppDirManager {
     await file.writeAsString(path);
   }
 
-  Directory getSubFold(SubFold sub) {
-    String root = getRootAppDir().path;
+  Future<Directory> getSubFold(SubFold sub) async {
+    Directory rootDir = await getRootDir();
 
     return switch (sub) {
-      SubFold.opt => _makeDirPath(root, "opt"),
-      SubFold.arts => _makeDirPath(root, "arts"),
-      SubFold.cores => _makeDirPath(root, "cores"),
-      SubFold.save => _makeDirPath(root, "save"),
-      SubFold.system => _makeDirPath(root, "system"),
+      SubFold.opt => _makeDirPath(rootDir.path, "opt"),
+      SubFold.arts => _makeDirPath(rootDir.path, "arts"),
+      SubFold.cores => _makeDirPath(rootDir.path, "cores"),
+      SubFold.save => _makeDirPath(rootDir.path, "save"),
+      SubFold.system => _makeDirPath(rootDir.path, "system"),
+      SubFold.infos => _makeDirPath(rootDir.path, "infos"),
+      SubFold.temps => _makeDirPath(rootDir.path, "temps"),
     };
   }
 

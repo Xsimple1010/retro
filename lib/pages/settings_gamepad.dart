@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/gamepad_big_button.dart';
+import 'package:retro/components/setting_options_big.dart';
 import 'package:retro/components/setting_title.dart';
 
 class SettingGamepad extends StatelessWidget {
@@ -40,13 +41,24 @@ class SettingGamepad extends StatelessWidget {
             ],
           ),
         ),
-        const Padding(padding: EdgeInsets.only(bottom: 50)),
-        Text(
-          "Personalizar comandos",
-          style: TextStyle(
-            fontSize: 12 + constraints.maxHeight * .012,
-            fontWeight: FontWeight.w400,
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 50,
+            bottom: 20,
           ),
+          child: Text(
+            "Personalizar comandos",
+            style: TextStyle(
+              fontSize: 12 + constraints.maxHeight * .012,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+        SettingOptionBig(
+          constraints: constraints,
+          title: "Porta do console",
+          label: "Use isso para alterna entre o player 1 e 2",
+          onTab: () {},
         ),
       ],
     );

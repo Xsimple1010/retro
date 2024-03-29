@@ -3,6 +3,8 @@
     "ARGB",
     "autofocus",
     "gamepad",
+    "Libretro",
+    "nullable",
     "sqlite",
     "tinic",
     "Tinic",
