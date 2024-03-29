@@ -12,20 +12,21 @@ class DataBaseProvider with ChangeNotifier {
     return await (_database.delete(_database.game)).go();
   }
 
+  // Game
+  Future<int> updateGame(int id, GameCompanion game) async {
+    int count = await (_database.update(_database.game)
+          ..where((tbl) => tbl.id.equals(id)))
+        .write(game);
+
+    notifyListeners();
+
+    return count;
+  }
+
   Future<List<GameData>> getGames() async {
     final list = await _database.select(_database.game).get();
 
     return list;
-  }
-
-  Future<List<RetroCoreData>> getCores() async {
-    return await _database.select(_database.retroCore).get();
-  }
-
-  Future<RetroCoreData?> findOneCore(int id) async {
-    return await (_database.select(_database.retroCore)
-          ..where((tbl) => tbl.id.equals(id)))
-        .getSingleOrNull();
   }
 
   void insertGame(FileSystemEntity data) async {
@@ -39,7 +40,7 @@ class DataBaseProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> insertIfNotExist(List<FileSystemEntity> files) async {
+  Future<void> insertGameIfNotExist(List<FileSystemEntity> files) async {
     for (var file in files) {
       final name = appDir.getName(file.path);
 
@@ -58,6 +59,17 @@ class DataBaseProvider with ChangeNotifier {
         notifyListeners();
       }
     }
+  }
+
+  // Core
+  Future<List<RetroCoreData>> getCores() async {
+    return await _database.select(_database.retroCore).get();
+  }
+
+  Future<RetroCoreData?> findOneCore(int id) async {
+    return await (_database.select(_database.retroCore)
+          ..where((tbl) => tbl.id.equals(id)))
+        .getSingleOrNull();
   }
 
   Future<void> insertCoreIfNotExist(File file) async {
@@ -80,15 +92,5 @@ class DataBaseProvider with ChangeNotifier {
 
       notifyListeners();
     }
-  }
-
-  Future<int> update(int id, GameCompanion game) async {
-    int count = await (_database.update(_database.game)
-          ..where((tbl) => tbl.id.equals(id)))
-        .write(game);
-
-    notifyListeners();
-
-    return count;
   }
 }

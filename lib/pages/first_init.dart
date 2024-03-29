@@ -29,7 +29,7 @@ class _FirstInitPageState extends State<FirstInitPage> {
 
       List<FileSystemEntity> roms = await appDir.getRoms();
 
-      await db.insertIfNotExist(roms);
+      await db.insertGameIfNotExist(roms);
 
       setState(() {
         romsIsLoaded = true;

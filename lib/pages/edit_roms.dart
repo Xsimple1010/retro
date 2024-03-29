@@ -37,7 +37,7 @@ class _EditRomsState extends State<EditRoms> {
     );
 
     if (result != null) {
-      await db.update(
+      await db.updateGame(
         id,
         GameCompanion(
           img: drift.Value(result.files.single.path!),
@@ -53,7 +53,7 @@ class _EditRomsState extends State<EditRoms> {
     );
 
     if (result != null) {
-      await db.update(
+      await db.updateGame(
         id,
         GameCompanion(
           bg: drift.Value(result.files.single.path!),
@@ -64,7 +64,7 @@ class _EditRomsState extends State<EditRoms> {
   }
 
   Future<void> setCore(DataBaseProvider db, RetroCoreData core) async {
-    db.update(
+    db.updateGame(
       list[selectedIndex].id,
       GameCompanion(
         core: drift.Value(core.id),
