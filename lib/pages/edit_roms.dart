@@ -209,6 +209,7 @@ class _EditRomsState extends State<EditRoms> {
                                 itemCount: snapshot.data?.length ?? 0,
                                 itemBuilder: (context, index) => CoreItem(
                                   title: snapshot.data![index].name,
+                                  license: snapshot.data![index].license,
                                   onTab: () => setCore(
                                     db,
                                     snapshot.data![index],

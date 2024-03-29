@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/tools/app_dir_manager.dart';
+import 'package:retro/tools/core_info.dart';
 
 class DataBaseProvider with ChangeNotifier {
   final AppDatabase _database = AppDatabase();
@@ -72,21 +73,20 @@ class DataBaseProvider with ChangeNotifier {
         .getSingleOrNull();
   }
 
-  Future<void> insertCoreIfNotExist(File file) async {
-    final name = appDir.getName(file.path);
-
+  Future<void> insertCoreIfNotExist(File file, CoreInfo info) async {
     final coreInDb = await (_database.select(_database.retroCore)
-          ..where((t) => t.name.equals(name)))
+          ..where((t) => t.name.equals(info.coreName)))
         .getSingleOrNull();
 
     if (coreInDb?.path != file.path) {
       await _database.into(_database.retroCore).insert(
             RetroCoreCompanion.insert(
-              name: name,
+              name: info.coreName,
+              displayName: info.displayName,
               path: file.path,
-              license: "license",
-              extensions: "extensions",
-              metadata: "metadata",
+              license: info.license,
+              extensions: info.supportedExtensions,
+              metadata: (await getCoreInfoPath(info.coreName)).path,
             ),
           );
 

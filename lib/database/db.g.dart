@@ -23,6 +23,12 @@ class $RetroCoreTable extends RetroCore
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _displayNameMeta =
+      const VerificationMeta('displayName');
+  @override
+  late final GeneratedColumn<String> displayName = GeneratedColumn<String>(
+      'display_name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _licenseMeta =
       const VerificationMeta('license');
   @override
@@ -48,7 +54,7 @@ class $RetroCoreTable extends RetroCore
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, license, path, extensions, metadata];
+      [id, name, displayName, license, path, extensions, metadata];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -67,6 +73,14 @@ class $RetroCoreTable extends RetroCore
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
+    }
+    if (data.containsKey('display_name')) {
+      context.handle(
+          _displayNameMeta,
+          displayName.isAcceptableOrUnknown(
+              data['display_name']!, _displayNameMeta));
+    } else if (isInserting) {
+      context.missing(_displayNameMeta);
     }
     if (data.containsKey('license')) {
       context.handle(_licenseMeta,
@@ -107,6 +121,8 @@ class $RetroCoreTable extends RetroCore
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      displayName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}display_name'])!,
       license: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}license'])!,
       path: attachedDatabase.typeMapping
@@ -127,6 +143,7 @@ class $RetroCoreTable extends RetroCore
 class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   final int id;
   final String name;
+  final String displayName;
   final String license;
   final String path;
   final String extensions;
@@ -134,6 +151,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   const RetroCoreData(
       {required this.id,
       required this.name,
+      required this.displayName,
       required this.license,
       required this.path,
       required this.extensions,
@@ -143,6 +161,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
+    map['display_name'] = Variable<String>(displayName);
     map['license'] = Variable<String>(license);
     map['path'] = Variable<String>(path);
     map['extensions'] = Variable<String>(extensions);
@@ -154,6 +173,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     return RetroCoreCompanion(
       id: Value(id),
       name: Value(name),
+      displayName: Value(displayName),
       license: Value(license),
       path: Value(path),
       extensions: Value(extensions),
@@ -167,6 +187,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     return RetroCoreData(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
+      displayName: serializer.fromJson<String>(json['displayName']),
       license: serializer.fromJson<String>(json['license']),
       path: serializer.fromJson<String>(json['path']),
       extensions: serializer.fromJson<String>(json['extensions']),
@@ -179,6 +200,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
+      'displayName': serializer.toJson<String>(displayName),
       'license': serializer.toJson<String>(license),
       'path': serializer.toJson<String>(path),
       'extensions': serializer.toJson<String>(extensions),
@@ -189,6 +211,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   RetroCoreData copyWith(
           {int? id,
           String? name,
+          String? displayName,
           String? license,
           String? path,
           String? extensions,
@@ -196,6 +219,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       RetroCoreData(
         id: id ?? this.id,
         name: name ?? this.name,
+        displayName: displayName ?? this.displayName,
         license: license ?? this.license,
         path: path ?? this.path,
         extensions: extensions ?? this.extensions,
@@ -206,6 +230,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     return (StringBuffer('RetroCoreData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('displayName: $displayName, ')
           ..write('license: $license, ')
           ..write('path: $path, ')
           ..write('extensions: $extensions, ')
@@ -216,13 +241,14 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
 
   @override
   int get hashCode =>
-      Object.hash(id, name, license, path, extensions, metadata);
+      Object.hash(id, name, displayName, license, path, extensions, metadata);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RetroCoreData &&
           other.id == this.id &&
           other.name == this.name &&
+          other.displayName == this.displayName &&
           other.license == this.license &&
           other.path == this.path &&
           other.extensions == this.extensions &&
@@ -232,6 +258,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
 class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   final Value<int> id;
   final Value<String> name;
+  final Value<String> displayName;
   final Value<String> license;
   final Value<String> path;
   final Value<String> extensions;
@@ -239,6 +266,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   const RetroCoreCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
+    this.displayName = const Value.absent(),
     this.license = const Value.absent(),
     this.path = const Value.absent(),
     this.extensions = const Value.absent(),
@@ -247,11 +275,13 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   RetroCoreCompanion.insert({
     this.id = const Value.absent(),
     required String name,
+    required String displayName,
     required String license,
     required String path,
     required String extensions,
     required String metadata,
   })  : name = Value(name),
+        displayName = Value(displayName),
         license = Value(license),
         path = Value(path),
         extensions = Value(extensions),
@@ -259,6 +289,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   static Insertable<RetroCoreData> custom({
     Expression<int>? id,
     Expression<String>? name,
+    Expression<String>? displayName,
     Expression<String>? license,
     Expression<String>? path,
     Expression<String>? extensions,
@@ -267,6 +298,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
+      if (displayName != null) 'display_name': displayName,
       if (license != null) 'license': license,
       if (path != null) 'path': path,
       if (extensions != null) 'extensions': extensions,
@@ -277,6 +309,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   RetroCoreCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
+      Value<String>? displayName,
       Value<String>? license,
       Value<String>? path,
       Value<String>? extensions,
@@ -284,6 +317,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     return RetroCoreCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
+      displayName: displayName ?? this.displayName,
       license: license ?? this.license,
       path: path ?? this.path,
       extensions: extensions ?? this.extensions,
@@ -299,6 +333,9 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
+    }
+    if (displayName.present) {
+      map['display_name'] = Variable<String>(displayName.value);
     }
     if (license.present) {
       map['license'] = Variable<String>(license.value);
@@ -320,6 +357,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     return (StringBuffer('RetroCoreCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('displayName: $displayName, ')
           ..write('license: $license, ')
           ..write('path: $path, ')
           ..write('extensions: $extensions, ')

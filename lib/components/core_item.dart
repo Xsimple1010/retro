@@ -5,10 +5,12 @@ class CoreItem extends StatefulWidget {
     super.key,
     required this.onTab,
     required this.title,
+    required this.license,
   });
 
   final Function onTab;
   final String title;
+  final String license;
 
   @override
   State<CoreItem> createState() => _CoreItemState();
@@ -47,9 +49,9 @@ class _CoreItemState extends State<CoreItem> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const Text(
-                    "GPLv3",
-                    style: TextStyle(
+                  Text(
+                    widget.license,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                     ),

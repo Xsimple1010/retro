@@ -32,7 +32,27 @@ class SettingCore extends StatelessWidget {
         "${coreDir.path}${Platform.pathSeparator}${result.files.single.name}",
       );
 
-      await db.insertCoreIfNotExist(out);
+      CoreInfo currentInfo = CoreInfo(
+        coreName: appDir.getName(out.path),
+        displayName: appDir.getName(out.path),
+        authors: "",
+        categories: "",
+        displayVersion: "",
+        supportedExtensions: "",
+        license: "",
+        manufacturer: "",
+        permissions: "",
+        systemId: "",
+        systemName: "",
+      );
+
+      final info = await getCurrentCoreInfo(appDir.getName(out.path));
+
+      if (info != null) {
+        currentInfo = info;
+      }
+
+      await db.insertCoreIfNotExist(out, currentInfo);
     }
   }
 
@@ -61,8 +81,13 @@ class SettingCore extends StatelessWidget {
             ),
             shrinkWrap: true,
             itemBuilder: (context, index) => CoreItem(
-              title: snapshot.data![index].name,
-              onTab: () {},
+              title: snapshot.data![index].displayName,
+              license: snapshot.data![index].license,
+              onTab: () async {
+                await getCurrentCoreInfo(
+                  AppDirManager().getName(snapshot.data![index].path),
+                );
+              },
             ),
           ),
         ),
