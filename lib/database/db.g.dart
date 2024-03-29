@@ -8,7 +8,9 @@ class $RetroCoreTable extends RetroCore
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $RetroCoreTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -52,14 +54,18 @@ class $RetroCoreTable extends RetroCore
   late final GeneratedColumn<String> metadata = GeneratedColumn<String>(
       'metadata', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns =>
       [id, name, displayName, license, path, extensions, metadata];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'retro_core';
+
   @override
   VerificationContext validateIntegrity(Insertable<RetroCoreData> instance,
       {bool isInserting = false}) {
@@ -113,6 +119,7 @@ class $RetroCoreTable extends RetroCore
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   RetroCoreData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -148,6 +155,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   final String path;
   final String extensions;
   final String metadata;
+
   const RetroCoreData(
       {required this.id,
       required this.name,
@@ -156,6 +164,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       required this.path,
       required this.extensions,
       required this.metadata});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -194,6 +203,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       metadata: serializer.fromJson<String>(json['metadata']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -225,6 +235,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
         extensions: extensions ?? this.extensions,
         metadata: metadata ?? this.metadata,
       );
+
   @override
   String toString() {
     return (StringBuffer('RetroCoreData(')
@@ -242,6 +253,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   @override
   int get hashCode =>
       Object.hash(id, name, displayName, license, path, extensions, metadata);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -263,6 +275,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   final Value<String> path;
   final Value<String> extensions;
   final Value<String> metadata;
+
   const RetroCoreCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -272,6 +285,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     this.extensions = const Value.absent(),
     this.metadata = const Value.absent(),
   });
+
   RetroCoreCompanion.insert({
     this.id = const Value.absent(),
     required String name,
@@ -286,6 +300,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
         path = Value(path),
         extensions = Value(extensions),
         metadata = Value(metadata);
+
   static Insertable<RetroCoreData> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -371,7 +386,9 @@ class $GameTable extends Game with TableInfo<$GameTable, GameData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $GameTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -409,13 +426,17 @@ class $GameTable extends Game with TableInfo<$GameTable, GameData> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES retro_core (id)'));
+
   @override
   List<GeneratedColumn> get $columns => [id, name, path, img, bg, core];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'game';
+
   @override
   VerificationContext validateIntegrity(Insertable<GameData> instance,
       {bool isInserting = false}) {
@@ -452,6 +473,7 @@ class $GameTable extends Game with TableInfo<$GameTable, GameData> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   GameData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -484,6 +506,7 @@ class GameData extends DataClass implements Insertable<GameData> {
   final String? img;
   final String? bg;
   final int? core;
+
   const GameData(
       {required this.id,
       required this.name,
@@ -491,6 +514,7 @@ class GameData extends DataClass implements Insertable<GameData> {
       this.img,
       this.bg,
       this.core});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -532,6 +556,7 @@ class GameData extends DataClass implements Insertable<GameData> {
       core: serializer.fromJson<int?>(json['core']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -560,6 +585,7 @@ class GameData extends DataClass implements Insertable<GameData> {
         bg: bg.present ? bg.value : this.bg,
         core: core.present ? core.value : this.core,
       );
+
   @override
   String toString() {
     return (StringBuffer('GameData(')
@@ -575,6 +601,7 @@ class GameData extends DataClass implements Insertable<GameData> {
 
   @override
   int get hashCode => Object.hash(id, name, path, img, bg, core);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -594,6 +621,7 @@ class GameCompanion extends UpdateCompanion<GameData> {
   final Value<String?> img;
   final Value<String?> bg;
   final Value<int?> core;
+
   const GameCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -602,6 +630,7 @@ class GameCompanion extends UpdateCompanion<GameData> {
     this.bg = const Value.absent(),
     this.core = const Value.absent(),
   });
+
   GameCompanion.insert({
     this.id = const Value.absent(),
     required String name,
@@ -611,6 +640,7 @@ class GameCompanion extends UpdateCompanion<GameData> {
     this.core = const Value.absent(),
   })  : name = Value(name),
         path = Value(path);
+
   static Insertable<GameData> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -688,9 +718,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $RetroCoreTable retroCore = $RetroCoreTable(this);
   late final $GameTable game = $GameTable(this);
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [retroCore, game];
 }

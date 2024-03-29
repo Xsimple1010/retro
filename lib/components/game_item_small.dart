@@ -12,6 +12,7 @@ class GameItemSmall extends StatefulWidget {
     required this.width,
     required this.data,
   });
+
   final double width;
   final double height;
   final GameData data;

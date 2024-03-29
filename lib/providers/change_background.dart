@@ -8,7 +8,7 @@ class BgProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // String get get {
-  //   return path;
-  // }
+// String get get {
+//   return path;
+// }
 }

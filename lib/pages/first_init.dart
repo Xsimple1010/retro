@@ -1,6 +1,7 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retro/pages/edit_roms.dart';
 import 'package:retro/pages/home.dart';
@@ -55,7 +56,7 @@ class _FirstInitPageState extends State<FirstInitPage> {
                 ),
               ),
               Text(
-                "Antes de iniciar mostre onde suas roms estão",
+                'Antes de iniciar mostre onde suas roms estão',
                 style: TextStyle(
                   fontSize: constraints.maxHeight * .032,
                   fontWeight: FontWeight.w300,

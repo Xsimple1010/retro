@@ -5,6 +5,7 @@ import 'package:retro/pages/home.dart';
 import 'package:retro/providers/change_background.dart';
 import 'package:retro/providers/database_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
+
 import './messages/generated.dart';
 
 void main() async {
@@ -16,9 +17,9 @@ void main() async {
   final roms = await db.getGames();
 
   AppDirManager appDir = AppDirManager();
-  final gameDirExiste = await appDir.getUseGameDir();
+  final gameDirExists = await appDir.getUseGameDir();
 
-  if (roms.isNotEmpty && gameDirExiste.alreadyExist) {
+  if (roms.isNotEmpty && gameDirExists.alreadyExist) {
     firstInit = false;
   }
 

@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:retro/tools/app_dir_manager.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:archive/archive.dart';
+import 'package:http/http.dart' as http;
+import 'package:retro/tools/app_dir_manager.dart';
 
 AppDirManager dirManager = AppDirManager();
 

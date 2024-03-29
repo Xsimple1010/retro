@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:retro/providers/change_background.dart';
 import 'package:provider/provider.dart';
+import 'package:retro/providers/change_background.dart';
 
 class Background extends StatefulWidget {
   const Background({
