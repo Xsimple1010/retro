@@ -2,30 +2,24 @@
 //! entry point of the Rust logic.
 extern crate once_cell;
 extern crate tinic;
-// This `tokio` will be used by Rinf.
-// You can replace it with the original `tokio`
-// if you're not targeting the web.
+use std::sync::{Arc, Mutex};
+
+use tinic::Tinic;
 use tokio_with_wasm::tokio;
 
 mod event;
+mod game_pad;
 mod messages;
-// mod sample_functions;
 
 rinf::write_interface!();
 
-// Always use non-blocking async functions
-// such as `tokio::fs::File::open`.
-// If you really need to use blocking code,
-// use `tokio::task::spawn_blocking`.
 async fn main() {
-    // Repeat `tokio::spawn` anywhere in your code
-    // if more concurrent tasks are needed.
-    event::init();
+    let tinic = Arc::new(Mutex::new(Tinic::new(Some(game_pad::game_pad_listener))));
 
-    tokio::spawn(event::load_core());
-    tokio::spawn(event::load_rom());
-    tokio::spawn(event::pause());
-    tokio::spawn(event::resume());
-    tokio::spawn(event::get_gamepad_list());
-    // tokio::spawn(sample_functions::run_debug_tests());
+    tokio::spawn(event::load_core(tinic.clone()));
+    tokio::spawn(event::load_rom(tinic.clone()));
+    tokio::spawn(event::pause(tinic.clone()));
+    tokio::spawn(event::resume(tinic.clone()));
+
+    tokio::spawn(game_pad::get_game_pad_list(tinic.clone()));
 }

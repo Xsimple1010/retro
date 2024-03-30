@@ -1,0 +1,26 @@
+syntax = "proto3";
+package game_pad_list;
+
+
+// [RINF:DART-SIGNAL]
+message GamePadConnectedListInput {
+}
+
+// [RINF:RUST-SIGNAL]
+message GamePadConnectedListOutput {
+    repeated GamePadItem game_pad_items = 1;
+}
+
+message GamePadItem {
+    string name = 1;
+    int32 port = 2;
+    repeated KeyMap key_map = 3;
+}
+
+message KeyMap {
+    int32 native = 1;
+    string native_name = 2;
+    int32 retro = 3;
+    string native_retro = 4;
+    bool pressed = 5;
+}
