@@ -26,7 +26,6 @@ async fn main() {
     tokio::spawn(event::load_rom());
     tokio::spawn(event::pause());
     tokio::spawn(event::resume());
-
-    // tokio::spawn(sample_functions::stream_fractal());
+    tokio::spawn(event::get_gamepad_list());
     // tokio::spawn(sample_functions::run_debug_tests());
 }

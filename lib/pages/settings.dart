@@ -92,7 +92,7 @@ class _SettingModalState extends State<SettingModal> {
                 ),
                 child: SingleChildScrollView(
                   child: switch (pageSelected) {
-                    Pages.gamepad => SettingGamepad(constraints: constraints),
+                    Pages.gamepad => SettingGamePad(constraints: constraints),
                     Pages.core => SettingCore(
                         constraints: constraints,
                       ),

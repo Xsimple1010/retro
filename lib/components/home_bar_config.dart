@@ -14,6 +14,13 @@ class HomeBarConfigs extends StatelessWidget {
           },
           icon: const Icon(Icons.gamepad),
         ),
+        // StreamBuilder(
+        //   stream: GamePadConnectedOutput.rustSignalStream,
+        //   builder: (context, snapshot) => ElevatedButton(
+        //     onPressed: () {},
+        //     child: Text(snapshot.data?.message.name ?? "nada a inda"),
+        //   ),
+        // ),
         IconButton(
           onPressed: () {
             Navigator.push(

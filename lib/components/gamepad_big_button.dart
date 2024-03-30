@@ -5,10 +5,12 @@ class GamePadBigButton extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    required this.name,
   });
 
   final double width;
   final double height;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,9 @@ class GamePadBigButton extends StatelessWidget {
       width: 160,
       margin: const EdgeInsets.only(right: 20),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          print(name);
+        },
         onLongPress: () {
           //faz com que o gamepad vibre
         },
@@ -35,7 +39,7 @@ class GamePadBigButton extends StatelessWidget {
               size: width * .3,
             ),
             Text(
-              "DualSense",
+              name,
               style: TextStyle(fontSize: 12 + width * .034),
             )
           ],
