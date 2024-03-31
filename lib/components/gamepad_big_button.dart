@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retro/components/base/retro_elevated_button.dart';
 
 class GamePadBigButton extends StatelessWidget {
   const GamePadBigButton({
@@ -19,7 +20,7 @@ class GamePadBigButton extends StatelessWidget {
     return Container(
       width: 160,
       margin: const EdgeInsets.only(right: 20),
-      child: ElevatedButton(
+      child: RetroElevatedButton(
         onPressed: () => onPressed(),
         onLongPress: () {
           //faz com que o gamepad vibre

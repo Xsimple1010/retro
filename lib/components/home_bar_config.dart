@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retro/components/base/retro_icon_button.dart';
 import 'package:retro/pages/settings.dart';
 
 class HomeBarConfigs extends StatelessWidget {
@@ -8,20 +9,11 @@ class HomeBarConfigs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IconButton(
-          onPressed: () {
-            print("object");
-          },
+        RetroIconButton(
+          onPressed: () {},
           icon: const Icon(Icons.gamepad),
         ),
-        // StreamBuilder(
-        //   stream: GamePadConnectedOutput.rustSignalStream,
-        //   builder: (context, snapshot) => ElevatedButton(
-        //     onPressed: () {},
-        //     child: Text(snapshot.data?.message.name ?? "nada a inda"),
-        //   ),
-        // ),
-        IconButton(
+        RetroIconButton(
           onPressed: () {
             Navigator.push(
               context,

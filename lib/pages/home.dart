@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                     builder: (context, snapshot) => GameItemList(
                       constraints: constraints,
                       gameList: snapshot.data ?? [],
-                      onTab: (game) => playGame(game, db),
+                      onTab: (game) async => await playGame(game, db),
                     ),
                   ),
                   FutureBuilder(

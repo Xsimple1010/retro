@@ -752,7 +752,7 @@ dependencies = [
 [[package]]
 name = "retro_ab_gamepad"
 version = "0.1.0"
-source = "git+https://github.com/Xsimple1010/retro_ab_gamepad.git#6f5a86f4fa2ff248211940708213e3554361e9be"
+source = "git+https://github.com/Xsimple1010/retro_ab_gamepad.git#7400bf4902b25fd15ecae991e596a47aa663be65"
 dependencies = [
  "gilrs",
  "lazy_static",
@@ -932,7 +932,7 @@ dependencies = [
 [[package]]
 name = "tinic"
 version = "0.1.0"
-source = "git+https://github.com/Xsimple1010/tinic.git#c08658d090742b23354ed4659811642a28d735ef"
+source = "git+https://github.com/Xsimple1010/tinic.git#e61a707e8de125dedf629ce55f4a9ebb1a18ab31"
 dependencies = [
  "lazy_static",
  "retro_ab",

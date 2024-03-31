@@ -109,15 +109,16 @@ class _SettingGamePadState extends State<SettingGamePad> {
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: getKeyMapsLen(
-                      snapshot.data?.message.gamePadItems,
-                      gamePadIndex,
-                    ).length,
+                  snapshot.data?.message.gamePadItems,
+                  gamePadIndex,
+                ).length,
                 itemBuilder: (context, index) => SettingOptionBig(
                   constraints: widget.constraints,
                   title: getKeyMapsLen(
                     snapshot.data?.message.gamePadItems,
                     gamePadIndex,
-                  )[index].nativeRetro,
+                  )[index]
+                      .nativeRetro,
                   label: "Aperte para alterar",
                   onTab: () {},
                 ),

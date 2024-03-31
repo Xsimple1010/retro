@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retro/components/base/retro_elevated_button.dart';
 import 'package:retro/components/core_item.dart';
 import 'package:retro/components/setting_options_big.dart';
 import 'package:retro/components/setting_title.dart';
@@ -94,7 +95,7 @@ class SettingCore extends StatelessWidget {
         Container(
           width: constraints.maxWidth,
           padding: const EdgeInsets.only(bottom: 20),
-          child: ElevatedButton(
+          child: RetroElevatedButton(
             onPressed: () async {
               await getCoreFile(db);
             },

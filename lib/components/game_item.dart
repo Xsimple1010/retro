@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'package:retro/components/game_item_not_img.dart';
+import 'package:retro/components/base/retro_ink_well.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/providers/change_background.dart';
 import 'package:retro/providers/database_provider.dart';
@@ -30,7 +31,6 @@ class GameItem extends StatefulWidget {
 
 class _GameItemState extends State<GameItem> {
   bool hasFocus = false;
-  FocusNode focusNode = FocusNode();
 
   void onFocusChange(bool focus, BgProvider bg) {
     if (focus) {
@@ -43,13 +43,11 @@ class _GameItemState extends State<GameItem> {
   }
 
   Future<void> onTap(DataBaseProvider db) async {
-    focusNode.requestFocus();
     widget.onTab(widget.data);
   }
 
   @override
   void dispose() {
-    focusNode.dispose();
     super.dispose();
   }
 
@@ -67,14 +65,10 @@ class _GameItemState extends State<GameItem> {
 
     final db = context.read<DataBaseProvider>();
 
-    return InkWell(
-      autofocus: true,
-      focusNode: focusNode,
+    return RetroInkWell(
       onFocusChange: (value) => onFocusChange(value, bg),
       onHover: (value) => onFocusChange(value, bg),
       onTap: () async => await onTap(db),
-      borderRadius: borderRadius,
-      focusColor: Colors.transparent,
       child: Container(
         margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
@@ -103,24 +97,24 @@ class _GameItemState extends State<GameItem> {
             ),
           ),
         ),
-      ),
+      )
+          ,
+    ).animate(
+      target: widget.enableAnimation
+          ? hasFocus
+          ? 1
+          : 0
+          : 0,
     )
-        .animate(
-          target: widget.enableAnimation
-              ? hasFocus
-                  ? 1
-                  : 0
-              : 0,
-        )
         .moveY(
-          begin: 40,
-          end: -10.2,
-          curve: Curves.easeIn,
-          duration: const Duration(milliseconds: 150),
-        )
+      begin: 40,
+      end: -10.2,
+      curve: Curves.easeIn,
+      duration: const Duration(milliseconds: 150),
+    )
         .scale(
-          begin: const Offset(0.75, 0.75),
-          duration: const Duration(milliseconds: 150),
-        );
+      begin: const Offset(0.75, 0.75),
+      duration: const Duration(milliseconds: 150),
+    );
   }
 }

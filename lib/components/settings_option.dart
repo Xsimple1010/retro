@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retro/components/base/retro_elevated_button.dart';
 
 class SettingsOption extends StatefulWidget {
   const SettingsOption({
@@ -23,7 +24,7 @@ class _SettingsOptionState extends State<SettingsOption> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      child: ElevatedButton(
+      child: RetroElevatedButton(
         onPressed: () => widget.onTab(),
         onFocusChange: (value) {
           setState(() {

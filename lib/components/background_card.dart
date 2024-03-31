@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:retro/components/base/retro_ink_well.dart';
 import 'package:retro/database/db.dart';
 
 class BgCard extends StatelessWidget {
@@ -25,7 +26,7 @@ class BgCard extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: InkWell(
+      child: RetroInkWell(
         onTap: () => onTab(),
         borderRadius: borderRadius,
         child: Visibility(

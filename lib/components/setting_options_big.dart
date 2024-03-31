@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retro/components/base/retro_elevated_button.dart';
 
 class SettingOptionBig extends StatelessWidget {
   const SettingOptionBig({
@@ -20,7 +21,7 @@ class SettingOptionBig extends StatelessWidget {
       height: 70,
       width: constraints.maxWidth,
       margin: const EdgeInsets.symmetric(vertical: 7),
-      child: ElevatedButton(
+      child: RetroElevatedButton(
         onPressed: () => onTab(),
         style: ElevatedButton.styleFrom(
           side: const BorderSide(style: BorderStyle.none),

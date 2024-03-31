@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:retro/components/base/retro_ink_well.dart';
 import 'package:retro/components/game_item_not_img.dart';
 import 'package:retro/database/db.dart';
 
@@ -43,9 +44,7 @@ class _GameItemSmallState extends State<GameItemSmall> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      autofocus: true,
-      focusNode: focusNode,
+    return RetroInkWell(
       onFocusChange: onFocusChange,
       onHover: onFocusChange,
       onTap: () => onTab(context),

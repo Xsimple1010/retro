@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:retro/components/base/retro_elevated_button.dart';
+import 'package:retro/components/base/retro_floating_action_button.dart';
+import 'package:retro/components/base/retro_icon_button.dart';
 import 'package:retro/pages/edit_roms.dart';
 import 'package:retro/pages/home.dart';
 import 'package:retro/providers/database_provider.dart';
@@ -70,14 +73,14 @@ class _FirstInitPageState extends State<FirstInitPage> {
         margin: const EdgeInsets.only(bottom: 50),
         child: Visibility(
           visible: romsIsLoaded,
-          replacement: FloatingActionButton(
+          replacement: RetroFloatingActionButton(
             onPressed: () => selectGameDir(db),
             child: const Icon(Icons.add),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
+              RetroElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -88,11 +91,11 @@ class _FirstInitPageState extends State<FirstInitPage> {
                 },
                 child: const Text("Editar as roms"),
               ),
-              IconButton(
+              RetroIconButton(
                 onPressed: () => selectGameDir(db),
                 icon: const Icon(Icons.folder_open_sharp),
               ),
-              IconButton(
+              RetroIconButton(
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
