@@ -36,6 +36,12 @@ class _GameItemSmallState extends State<GameItemSmall> {
   }
 
   @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       autofocus: true,

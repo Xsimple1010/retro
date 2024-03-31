@@ -48,6 +48,12 @@ class _GameItemState extends State<GameItem> {
   }
 
   @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bg = Provider.of<BgProvider>(context);
     final border = Border.all(
