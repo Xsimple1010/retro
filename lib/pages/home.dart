@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:retro/components/background.dart';
 import 'package:retro/components/game_item_list.dart';
 import 'package:retro/components/home_bar.dart';
-import 'package:retro/components/list_with_title.dart';
+import 'package:retro/components/list_roms_with_core_name.dart';
 import 'package:retro/database/db.dart';
-import 'package:retro/messages/load_core.pb.dart';
 import 'package:retro/messages/load_rom.pb.dart';
 import 'package:retro/providers/database_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
@@ -18,16 +17,15 @@ class HomePage extends StatelessWidget {
       final core = await db.findOneCore(game.core ?? 0);
 
       AppDirManager appDir = AppDirManager();
-      LoadCoreInput(
-        path: core?.path,
+      LoadRomInput(
+        corePath: core?.path,
+        romPath: game.path,
         paths: Paths(
           opt: (await appDir.getSubFold(SubFold.opt)).path,
           save: (await appDir.getSubFold(SubFold.save)).path,
           system: (await appDir.getSubFold(SubFold.system)).path,
         ),
       ).sendSignalToRust(null);
-
-      LoadRomInput(path: game.path).sendSignalToRust(null);
     }
   }
 
@@ -59,11 +57,20 @@ class HomePage extends StatelessWidget {
                       onTab: (game) async => await playGame(game, db),
                     ),
                   ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(bottom: constraints.maxHeight * .05),
+                  ),
                   FutureBuilder(
-                    future: db.getGames(),
-                    builder: (context, snapshot) => ListWithTitle(
-                      constraints: constraints,
-                      gameList: snapshot.data ?? [],
+                    future: db.getCores(),
+                    initialData: const [],
+                    builder: (context, snapshot) => ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data?.length ?? 0,
+                      itemBuilder: (context, index) => ListRomsWithCoreName(
+                        constraints: constraints,
+                        core: snapshot.data![index],
+                      ),
                     ),
                   ),
                 ],

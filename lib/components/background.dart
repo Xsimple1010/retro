@@ -37,7 +37,7 @@ class _BackgroundState extends State<Background> {
               )
               .scale(
                 begin: const Offset(1, 1),
-                end: const Offset(1.2, 1.2),
+                end: const Offset(1.13, 1.13),
                 duration: const Duration(seconds: 50),
               )
               .then()

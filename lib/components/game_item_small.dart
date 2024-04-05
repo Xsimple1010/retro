@@ -56,7 +56,7 @@ class _GameItemSmallState extends State<GameItemSmall> {
           ),
           border: hasFocus
               ? Border.all(
-                  width: 1.4, color: Theme.of(context).colorScheme.primary)
+                  width: 1.7, color: Theme.of(context).colorScheme.primary)
               : null,
         ),
         child: Visibility(

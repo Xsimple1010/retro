@@ -16,7 +16,6 @@ rinf::write_interface!();
 async fn main() {
     let tinic = Arc::new(Mutex::new(Tinic::new(Some(game_pad::game_pad_listener))));
 
-    tokio::spawn(event::load_core(tinic.clone()));
     tokio::spawn(event::load_rom(tinic.clone()));
     tokio::spawn(event::pause(tinic.clone()));
     tokio::spawn(event::resume(tinic.clone()));

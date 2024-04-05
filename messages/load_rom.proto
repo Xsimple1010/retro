@@ -3,9 +3,18 @@ package load_rom;
 
 // [RINF:DART-SIGNAL]
 message LoadRomInput {
-    string path = 1;
+    string core_path = 1;
+    string rom_path = 2;
+    Paths paths = 3;
 }
 
 // [RINF:RUST-SIGNAL]
 message LoadRomOutput {
+}
+
+
+message Paths {
+    string save = 1;
+    string opt = 2;
+    string system = 3;
 }

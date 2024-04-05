@@ -8,9 +8,7 @@ class $RetroCoreTable extends RetroCore
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-
   $RetroCoreTable(this.attachedDatabase, [this._alias]);
-
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -24,6 +22,12 @@ class $RetroCoreTable extends RetroCore
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sysNameMeta =
+      const VerificationMeta('sysName');
+  @override
+  late final GeneratedColumn<String> sysName = GeneratedColumn<String>(
+      'sys_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _displayNameMeta =
       const VerificationMeta('displayName');
@@ -54,18 +58,14 @@ class $RetroCoreTable extends RetroCore
   late final GeneratedColumn<String> metadata = GeneratedColumn<String>(
       'metadata', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, displayName, license, path, extensions, metadata];
-
+      [id, name, sysName, displayName, license, path, extensions, metadata];
   @override
   String get aliasedName => _alias ?? actualTableName;
-
   @override
   String get actualTableName => $name;
   static const String $name = 'retro_core';
-
   @override
   VerificationContext validateIntegrity(Insertable<RetroCoreData> instance,
       {bool isInserting = false}) {
@@ -79,6 +79,12 @@ class $RetroCoreTable extends RetroCore
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
+    }
+    if (data.containsKey('sys_name')) {
+      context.handle(_sysNameMeta,
+          sysName.isAcceptableOrUnknown(data['sys_name']!, _sysNameMeta));
+    } else if (isInserting) {
+      context.missing(_sysNameMeta);
     }
     if (data.containsKey('display_name')) {
       context.handle(
@@ -119,7 +125,6 @@ class $RetroCoreTable extends RetroCore
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
-
   @override
   RetroCoreData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -128,6 +133,8 @@ class $RetroCoreTable extends RetroCore
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      sysName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sys_name'])!,
       displayName: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}display_name'])!,
       license: attachedDatabase.typeMapping
@@ -150,26 +157,27 @@ class $RetroCoreTable extends RetroCore
 class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   final int id;
   final String name;
+  final String sysName;
   final String displayName;
   final String license;
   final String path;
   final String extensions;
   final String metadata;
-
   const RetroCoreData(
       {required this.id,
       required this.name,
+      required this.sysName,
       required this.displayName,
       required this.license,
       required this.path,
       required this.extensions,
       required this.metadata});
-
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
+    map['sys_name'] = Variable<String>(sysName);
     map['display_name'] = Variable<String>(displayName);
     map['license'] = Variable<String>(license);
     map['path'] = Variable<String>(path);
@@ -182,6 +190,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     return RetroCoreCompanion(
       id: Value(id),
       name: Value(name),
+      sysName: Value(sysName),
       displayName: Value(displayName),
       license: Value(license),
       path: Value(path),
@@ -196,6 +205,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     return RetroCoreData(
       id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
+      sysName: serializer.fromJson<String>(json['sysName']),
       displayName: serializer.fromJson<String>(json['displayName']),
       license: serializer.fromJson<String>(json['license']),
       path: serializer.fromJson<String>(json['path']),
@@ -203,13 +213,13 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       metadata: serializer.fromJson<String>(json['metadata']),
     );
   }
-
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
+      'sysName': serializer.toJson<String>(sysName),
       'displayName': serializer.toJson<String>(displayName),
       'license': serializer.toJson<String>(license),
       'path': serializer.toJson<String>(path),
@@ -221,6 +231,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   RetroCoreData copyWith(
           {int? id,
           String? name,
+          String? sysName,
           String? displayName,
           String? license,
           String? path,
@@ -229,18 +240,19 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       RetroCoreData(
         id: id ?? this.id,
         name: name ?? this.name,
+        sysName: sysName ?? this.sysName,
         displayName: displayName ?? this.displayName,
         license: license ?? this.license,
         path: path ?? this.path,
         extensions: extensions ?? this.extensions,
         metadata: metadata ?? this.metadata,
       );
-
   @override
   String toString() {
     return (StringBuffer('RetroCoreData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('sysName: $sysName, ')
           ..write('displayName: $displayName, ')
           ..write('license: $license, ')
           ..write('path: $path, ')
@@ -251,15 +263,15 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, name, displayName, license, path, extensions, metadata);
-
+  int get hashCode => Object.hash(
+      id, name, sysName, displayName, license, path, extensions, metadata);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is RetroCoreData &&
           other.id == this.id &&
           other.name == this.name &&
+          other.sysName == this.sysName &&
           other.displayName == this.displayName &&
           other.license == this.license &&
           other.path == this.path &&
@@ -270,40 +282,42 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
 class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   final Value<int> id;
   final Value<String> name;
+  final Value<String> sysName;
   final Value<String> displayName;
   final Value<String> license;
   final Value<String> path;
   final Value<String> extensions;
   final Value<String> metadata;
-
   const RetroCoreCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
+    this.sysName = const Value.absent(),
     this.displayName = const Value.absent(),
     this.license = const Value.absent(),
     this.path = const Value.absent(),
     this.extensions = const Value.absent(),
     this.metadata = const Value.absent(),
   });
-
   RetroCoreCompanion.insert({
     this.id = const Value.absent(),
     required String name,
+    required String sysName,
     required String displayName,
     required String license,
     required String path,
     required String extensions,
     required String metadata,
   })  : name = Value(name),
+        sysName = Value(sysName),
         displayName = Value(displayName),
         license = Value(license),
         path = Value(path),
         extensions = Value(extensions),
         metadata = Value(metadata);
-
   static Insertable<RetroCoreData> custom({
     Expression<int>? id,
     Expression<String>? name,
+    Expression<String>? sysName,
     Expression<String>? displayName,
     Expression<String>? license,
     Expression<String>? path,
@@ -313,6 +327,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
+      if (sysName != null) 'sys_name': sysName,
       if (displayName != null) 'display_name': displayName,
       if (license != null) 'license': license,
       if (path != null) 'path': path,
@@ -324,6 +339,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   RetroCoreCompanion copyWith(
       {Value<int>? id,
       Value<String>? name,
+      Value<String>? sysName,
       Value<String>? displayName,
       Value<String>? license,
       Value<String>? path,
@@ -332,6 +348,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     return RetroCoreCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
+      sysName: sysName ?? this.sysName,
       displayName: displayName ?? this.displayName,
       license: license ?? this.license,
       path: path ?? this.path,
@@ -348,6 +365,9 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
+    }
+    if (sysName.present) {
+      map['sys_name'] = Variable<String>(sysName.value);
     }
     if (displayName.present) {
       map['display_name'] = Variable<String>(displayName.value);
@@ -372,6 +392,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     return (StringBuffer('RetroCoreCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
+          ..write('sysName: $sysName, ')
           ..write('displayName: $displayName, ')
           ..write('license: $license, ')
           ..write('path: $path, ')
@@ -386,9 +407,7 @@ class $GameTable extends Game with TableInfo<$GameTable, GameData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-
   $GameTable(this.attachedDatabase, [this._alias]);
-
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -426,17 +445,13 @@ class $GameTable extends Game with TableInfo<$GameTable, GameData> {
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES retro_core (id)'));
-
   @override
   List<GeneratedColumn> get $columns => [id, name, path, img, bg, core];
-
   @override
   String get aliasedName => _alias ?? actualTableName;
-
   @override
   String get actualTableName => $name;
   static const String $name = 'game';
-
   @override
   VerificationContext validateIntegrity(Insertable<GameData> instance,
       {bool isInserting = false}) {
@@ -473,7 +488,6 @@ class $GameTable extends Game with TableInfo<$GameTable, GameData> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
-
   @override
   GameData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -506,7 +520,6 @@ class GameData extends DataClass implements Insertable<GameData> {
   final String? img;
   final String? bg;
   final int? core;
-
   const GameData(
       {required this.id,
       required this.name,
@@ -514,7 +527,6 @@ class GameData extends DataClass implements Insertable<GameData> {
       this.img,
       this.bg,
       this.core});
-
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -556,7 +568,6 @@ class GameData extends DataClass implements Insertable<GameData> {
       core: serializer.fromJson<int?>(json['core']),
     );
   }
-
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -585,7 +596,6 @@ class GameData extends DataClass implements Insertable<GameData> {
         bg: bg.present ? bg.value : this.bg,
         core: core.present ? core.value : this.core,
       );
-
   @override
   String toString() {
     return (StringBuffer('GameData(')
@@ -601,7 +611,6 @@ class GameData extends DataClass implements Insertable<GameData> {
 
   @override
   int get hashCode => Object.hash(id, name, path, img, bg, core);
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -621,7 +630,6 @@ class GameCompanion extends UpdateCompanion<GameData> {
   final Value<String?> img;
   final Value<String?> bg;
   final Value<int?> core;
-
   const GameCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -630,7 +638,6 @@ class GameCompanion extends UpdateCompanion<GameData> {
     this.bg = const Value.absent(),
     this.core = const Value.absent(),
   });
-
   GameCompanion.insert({
     this.id = const Value.absent(),
     required String name,
@@ -640,7 +647,6 @@ class GameCompanion extends UpdateCompanion<GameData> {
     this.core = const Value.absent(),
   })  : name = Value(name),
         path = Value(path);
-
   static Insertable<GameData> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -718,11 +724,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $RetroCoreTable retroCore = $RetroCoreTable(this);
   late final $GameTable game = $GameTable(this);
-
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
-
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [retroCore, game];
 }

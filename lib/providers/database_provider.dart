@@ -85,6 +85,7 @@ class DataBaseProvider with ChangeNotifier {
       await _database.into(_database.retroCore).insert(
             RetroCoreCompanion.insert(
               name: info.coreName,
+              sysName: info.systemName,
               displayName: info.displayName,
               path: file.path,
               license: info.license,
@@ -95,5 +96,10 @@ class DataBaseProvider with ChangeNotifier {
 
       notifyListeners();
     }
+  }
+
+  //general
+  Future<List<GameData>> getRomsByCore(int id) async {
+    return await (_database.select(_database.game)..where((tbl) => tbl.core.equals(id))).get();
   }
 }

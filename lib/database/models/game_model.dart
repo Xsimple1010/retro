@@ -20,6 +20,8 @@ class RetroCore extends Table {
 
   TextColumn get name => text()();
 
+  TextColumn get sysName => text()();
+
   TextColumn get displayName => text()();
 
   TextColumn get license => text()();

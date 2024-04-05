@@ -55,7 +55,7 @@ class _GameItemState extends State<GameItem> {
   Widget build(BuildContext context) {
     final bg = Provider.of<BgProvider>(context);
     final border = Border.all(
-      width: 1.4,
+      width: 1.7,
       color: Theme.of(context).colorScheme.primary,
     );
 
