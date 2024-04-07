@@ -23,8 +23,11 @@ class _RetroIconButtonState extends State<RetroIconButton> {
   @override
   void initState() {
     buttonPressedOutput.listen((event) {
-      if (gamePadInputHandle(focusNode, event.message.name)) {
+      final state = gamePadInputHandle(focusNode, event.message.name);
+      if (state == GamePadInputsFocus.click) {
         widget.onPressed();
+      } else if (state == GamePadInputsFocus.back) {
+        Navigator.pop(context);
       }
     });
     super.initState();

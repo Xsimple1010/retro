@@ -29,23 +29,25 @@ class _RetroElevatedButtonState extends State<RetroElevatedButton> {
   final buttonPressedOutput = GamePadButtonPressedOutput.rustSignalStream;
   final focusNode = FocusNode();
 
-
   void onPressHandle() {
-      if (widget.onPressed != null) {
-        setState(() {
-          focusNode.requestFocus();
-        });
-        widget.onPressed!();
-      }
+    if (widget.onPressed != null) {
+      setState(() {
+        focusNode.requestFocus();
+      });
+      widget.onPressed!();
+    }
   }
 
   @override
   void initState() {
     buttonPressedOutput.listen((event) {
-      if (gamePadInputHandle(focusNode, event.message.name)) {
+      final state = gamePadInputHandle(focusNode, event.message.name);
+      if (state == GamePadInputsFocus.click) {
         if (widget.onPressed != null) {
           widget.onPressed!();
         }
+      } else if (state == GamePadInputsFocus.back) {
+        Navigator.pop(context);
       }
     });
     super.initState();

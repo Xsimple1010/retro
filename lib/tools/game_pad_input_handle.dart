@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+
+enum GamePadInputsFocus {
+  none,
+  click,
+  back,
+}
 
 // return true if widget is pressed
-bool gamePadInputHandle(FocusNode focusNode, String name) {
+GamePadInputsFocus gamePadInputHandle(FocusNode focusNode, String name) {
   if (focusNode.hasFocus) {
     if (name == "DPad-down") {
       focusNode.focusInDirection(TraversalDirection.down);
@@ -13,9 +20,11 @@ bool gamePadInputHandle(FocusNode focusNode, String name) {
     } else if (name == "DPad-right") {
       focusNode.focusInDirection(TraversalDirection.right);
     } else if (name == "B") {
-      return true;
+      return GamePadInputsFocus.click;
+    } else if (name == "A") {
+      return GamePadInputsFocus.back;
     }
   }
 
-  return false;
+  return GamePadInputsFocus.none;
 }

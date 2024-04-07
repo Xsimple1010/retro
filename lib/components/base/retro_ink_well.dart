@@ -32,10 +32,13 @@ class _RetroInkWellState extends State<RetroInkWell> {
   @override
   void initState() {
     buttonPressedOutput.listen((event) {
-      if (gamePadInputHandle(focusNode, event.message.name)) {
+      final state = gamePadInputHandle(focusNode, event.message.name);
+      if (state == GamePadInputsFocus.click) {
         if (widget.onTap != null) {
           widget.onTap!();
         }
+      } else if (state == GamePadInputsFocus.back) {
+        Navigator.pop(context);
       }
     });
     super.initState();
