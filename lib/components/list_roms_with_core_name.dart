@@ -9,10 +9,12 @@ class ListRomsWithCoreName extends StatelessWidget {
     super.key,
     required this.constraints,
     required this.core,
+    required this.onTab,
   });
 
   final BoxConstraints constraints;
   final RetroCoreData core;
+  final void Function(GameData) onTab;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class ListRomsWithCoreName extends StatelessWidget {
             ),
           ),
           FutureBuilder(
-           future: db.getRomsByCore(core.id),
+            future: db.getRomsByCore(core.id),
             builder: (context, snapshot) => SizedBox(
               width: constraints.maxWidth,
               height: constraints.maxHeight * .33,
@@ -49,6 +51,7 @@ class ListRomsWithCoreName extends StatelessWidget {
                   height: constraints.maxHeight * .27,
                   width: constraints.maxHeight * .22,
                   data: snapshot.data![index],
+                  onTab: onTab,
                 ),
               ),
             ),

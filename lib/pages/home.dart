@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
                         EdgeInsets.only(bottom: constraints.maxHeight * .05),
                   ),
                   FutureBuilder(
-                    future: db.getCores(),
+                    future: db.getUsageCores(),
                     initialData: const [],
                     builder: (context, snapshot) => ListView.builder(
                       shrinkWrap: true,
@@ -70,6 +70,7 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (context, index) => ListRomsWithCoreName(
                         constraints: constraints,
                         core: snapshot.data![index],
+                        onTab: (game) => playGame(game, db),
                       ),
                     ),
                   ),

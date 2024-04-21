@@ -58,9 +58,26 @@ class $RetroCoreTable extends RetroCore
   late final GeneratedColumn<String> metadata = GeneratedColumn<String>(
       'metadata', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _usingMeta = const VerificationMeta('using');
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, sysName, displayName, license, path, extensions, metadata];
+  late final GeneratedColumn<bool> using = GeneratedColumn<bool>(
+      'using', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("using" IN (0, 1))'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        name,
+        sysName,
+        displayName,
+        license,
+        path,
+        extensions,
+        metadata,
+        using
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -120,6 +137,12 @@ class $RetroCoreTable extends RetroCore
     } else if (isInserting) {
       context.missing(_metadataMeta);
     }
+    if (data.containsKey('using')) {
+      context.handle(
+          _usingMeta, using.isAcceptableOrUnknown(data['using']!, _usingMeta));
+    } else if (isInserting) {
+      context.missing(_usingMeta);
+    }
     return context;
   }
 
@@ -145,6 +168,8 @@ class $RetroCoreTable extends RetroCore
           .read(DriftSqlType.string, data['${effectivePrefix}extensions'])!,
       metadata: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}metadata'])!,
+      using: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}using'])!,
     );
   }
 
@@ -163,6 +188,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
   final String path;
   final String extensions;
   final String metadata;
+  final bool using;
   const RetroCoreData(
       {required this.id,
       required this.name,
@@ -171,7 +197,8 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       required this.license,
       required this.path,
       required this.extensions,
-      required this.metadata});
+      required this.metadata,
+      required this.using});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -183,6 +210,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
     map['path'] = Variable<String>(path);
     map['extensions'] = Variable<String>(extensions);
     map['metadata'] = Variable<String>(metadata);
+    map['using'] = Variable<bool>(using);
     return map;
   }
 
@@ -196,6 +224,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       path: Value(path),
       extensions: Value(extensions),
       metadata: Value(metadata),
+      using: Value(using),
     );
   }
 
@@ -211,6 +240,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       path: serializer.fromJson<String>(json['path']),
       extensions: serializer.fromJson<String>(json['extensions']),
       metadata: serializer.fromJson<String>(json['metadata']),
+      using: serializer.fromJson<bool>(json['using']),
     );
   }
   @override
@@ -225,6 +255,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
       'path': serializer.toJson<String>(path),
       'extensions': serializer.toJson<String>(extensions),
       'metadata': serializer.toJson<String>(metadata),
+      'using': serializer.toJson<bool>(using),
     };
   }
 
@@ -236,7 +267,8 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
           String? license,
           String? path,
           String? extensions,
-          String? metadata}) =>
+          String? metadata,
+          bool? using}) =>
       RetroCoreData(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -246,6 +278,7 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
         path: path ?? this.path,
         extensions: extensions ?? this.extensions,
         metadata: metadata ?? this.metadata,
+        using: using ?? this.using,
       );
   @override
   String toString() {
@@ -257,14 +290,15 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
           ..write('license: $license, ')
           ..write('path: $path, ')
           ..write('extensions: $extensions, ')
-          ..write('metadata: $metadata')
+          ..write('metadata: $metadata, ')
+          ..write('using: $using')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, name, sysName, displayName, license, path, extensions, metadata);
+  int get hashCode => Object.hash(id, name, sysName, displayName, license, path,
+      extensions, metadata, using);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -276,7 +310,8 @@ class RetroCoreData extends DataClass implements Insertable<RetroCoreData> {
           other.license == this.license &&
           other.path == this.path &&
           other.extensions == this.extensions &&
-          other.metadata == this.metadata);
+          other.metadata == this.metadata &&
+          other.using == this.using);
 }
 
 class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
@@ -288,6 +323,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
   final Value<String> path;
   final Value<String> extensions;
   final Value<String> metadata;
+  final Value<bool> using;
   const RetroCoreCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -297,6 +333,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     this.path = const Value.absent(),
     this.extensions = const Value.absent(),
     this.metadata = const Value.absent(),
+    this.using = const Value.absent(),
   });
   RetroCoreCompanion.insert({
     this.id = const Value.absent(),
@@ -307,13 +344,15 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     required String path,
     required String extensions,
     required String metadata,
+    required bool using,
   })  : name = Value(name),
         sysName = Value(sysName),
         displayName = Value(displayName),
         license = Value(license),
         path = Value(path),
         extensions = Value(extensions),
-        metadata = Value(metadata);
+        metadata = Value(metadata),
+        using = Value(using);
   static Insertable<RetroCoreData> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -323,6 +362,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     Expression<String>? path,
     Expression<String>? extensions,
     Expression<String>? metadata,
+    Expression<bool>? using,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -333,6 +373,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
       if (path != null) 'path': path,
       if (extensions != null) 'extensions': extensions,
       if (metadata != null) 'metadata': metadata,
+      if (using != null) 'using': using,
     });
   }
 
@@ -344,7 +385,8 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
       Value<String>? license,
       Value<String>? path,
       Value<String>? extensions,
-      Value<String>? metadata}) {
+      Value<String>? metadata,
+      Value<bool>? using}) {
     return RetroCoreCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -354,6 +396,7 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
       path: path ?? this.path,
       extensions: extensions ?? this.extensions,
       metadata: metadata ?? this.metadata,
+      using: using ?? this.using,
     );
   }
 
@@ -384,6 +427,9 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
     if (metadata.present) {
       map['metadata'] = Variable<String>(metadata.value);
     }
+    if (using.present) {
+      map['using'] = Variable<bool>(using.value);
+    }
     return map;
   }
 
@@ -397,7 +443,8 @@ class RetroCoreCompanion extends UpdateCompanion<RetroCoreData> {
           ..write('license: $license, ')
           ..write('path: $path, ')
           ..write('extensions: $extensions, ')
-          ..write('metadata: $metadata')
+          ..write('metadata: $metadata, ')
+          ..write('using: $using')
           ..write(')'))
         .toString();
   }

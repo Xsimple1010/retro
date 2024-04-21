@@ -12,11 +12,13 @@ class GameItemSmall extends StatefulWidget {
     required this.height,
     required this.width,
     required this.data,
+    required this.onTab,
   });
 
   final double width;
   final double height;
   final GameData data;
+  final void Function(GameData) onTab;
 
   @override
   State<GameItemSmall> createState() => _GameItemSmallState();
@@ -34,6 +36,8 @@ class _GameItemSmallState extends State<GameItemSmall> {
 
   onTab(BuildContext context) {
     focusNode.requestFocus();
+
+    widget.onTab(widget.data);
   }
 
   @override

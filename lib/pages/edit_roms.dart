@@ -64,7 +64,25 @@ class _EditRomsState extends State<EditRoms> {
   }
 
   Future<void> setCore(DataBaseProvider db, RetroCoreData core) async {
-    db.updateGame(
+    if (core.id == list[selectedIndex].core) {
+      return;
+    }
+
+    if (list[selectedIndex].core != null) {
+      await db.updateCore(
+          list[selectedIndex].core!,
+          const RetroCoreCompanion(
+            using: drift.Value(false),
+          ));
+    }
+
+    await db.updateCore(
+        core.id,
+        const RetroCoreCompanion(
+          using: drift.Value(true),
+        ));
+
+    await db.updateGame(
       list[selectedIndex].id,
       GameCompanion(
         core: drift.Value(core.id),

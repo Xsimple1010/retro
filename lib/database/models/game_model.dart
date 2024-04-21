@@ -31,4 +31,6 @@ class RetroCore extends Table {
   TextColumn get extensions => text()();
 
   TextColumn get metadata => text()();
+
+  BoolColumn get using => boolean()();
 }

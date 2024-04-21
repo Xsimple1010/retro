@@ -66,8 +66,24 @@ class DataBaseProvider with ChangeNotifier {
   }
 
   // Core
+  Future<int> updateCore(int id, RetroCoreCompanion core) async {
+    int count = await (_database.update(_database.retroCore)
+          ..where((tbl) => tbl.id.equals(id)))
+        .write(core);
+
+    notifyListeners();
+
+    return count;
+  }
+
   Future<List<RetroCoreData>> getCores() async {
     return await _database.select(_database.retroCore).get();
+  }
+
+  Future<List<RetroCoreData>> getUsageCores() async {
+    return await (_database.select(_database.retroCore)
+          ..where((tbl) => tbl.using.equals(true)))
+        .get();
   }
 
   Future<RetroCoreData?> findOneCore(int id) async {
@@ -91,6 +107,7 @@ class DataBaseProvider with ChangeNotifier {
               license: info.license,
               extensions: info.supportedExtensions,
               metadata: (await getCoreInfoPath(info.coreName)).path,
+              using: false,
             ),
           );
 
@@ -100,6 +117,8 @@ class DataBaseProvider with ChangeNotifier {
 
   //general
   Future<List<GameData>> getRomsByCore(int id) async {
-    return await (_database.select(_database.game)..where((tbl) => tbl.core.equals(id))).get();
+    return await (_database.select(_database.game)
+          ..where((tbl) => tbl.core.equals(id)))
+        .get();
   }
 }
