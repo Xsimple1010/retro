@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/home_bar_config.dart';
-import 'package:retro/components/profile.dart';
 
 class HomeBar extends StatefulWidget {
   const HomeBar({
@@ -24,12 +23,22 @@ class _HomeBarState extends State<HomeBar> {
         top: widget.constraints.maxHeight * .04,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          UseProfile(
+          HomeBarConfigs(
             constraints: widget.constraints,
           ),
-          const HomeBarConfigs()
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Text(
+              "8:30",
+              style: TextStyle(
+                fontSize: 12 + widget.constraints.maxHeight * .02,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
         ],
       ),
     );

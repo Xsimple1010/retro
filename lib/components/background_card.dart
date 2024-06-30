@@ -36,8 +36,8 @@ class BgCard extends StatelessWidget {
               borderRadius: borderRadius,
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 22, 146, 155),
-                  Color.fromARGB(255, 67, 32, 197),
+                  Color.fromARGB(255, 62, 80, 82),
+                  Color.fromARGB(255, 51, 46, 70),
                 ],
               ),
             ),

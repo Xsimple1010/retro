@@ -19,12 +19,12 @@ class GameItemNotImg extends StatelessWidget {
       height: height,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
-          Radius.circular(12),
+          Radius.circular(25),
         ),
         gradient: LinearGradient(
           colors: [
-            Color.fromARGB(255, 22, 146, 155),
-            Color.fromARGB(255, 67, 32, 197),
+            Color.fromARGB(255, 32, 47, 49),
+            Color.fromARGB(255, 27, 12, 80),
           ],
         ),
       ),

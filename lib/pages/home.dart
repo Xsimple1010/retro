@@ -4,14 +4,20 @@ import 'package:retro/components/background.dart';
 import 'package:retro/components/game_item_list.dart';
 import 'package:retro/components/home_bar.dart';
 import 'package:retro/components/list_roms_with_core_name.dart';
+import 'package:retro/components/start_menu.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/messages/load_rom.pb.dart';
 import 'package:retro/providers/database_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   Future<void> playGame(GameData game, DataBaseProvider db) async {
     if (game.core != null) {
       final core = await db.findOneCore(game.core ?? 0);
@@ -25,7 +31,7 @@ class HomePage extends StatelessWidget {
           save: (await appDir.getSubFold(SubFold.save)).path,
           system: (await appDir.getSubFold(SubFold.system)).path,
         ),
-      ).sendSignalToRust(null);
+      ).sendSignalToRust();
     }
   }
 
@@ -76,6 +82,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            StartMenu(
+              constraints: constraints,
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:retro/components/base/retro_elevated_button.dart';
 import 'package:retro/components/core_item.dart';
@@ -104,6 +105,7 @@ class SettingCore extends StatelessWidget {
         ),
         SettingOptionBig(
           title: "Atualizar as informações dos núcleos",
+          icon: Ionicons.game_controller,
           constraints: constraints,
           onTab: () async => {await updateCoreInfo()},
         )

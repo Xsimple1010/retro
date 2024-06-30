@@ -5,11 +5,12 @@ import 'package:retro/pages/home.dart';
 import 'package:retro/providers/change_background.dart';
 import 'package:retro/providers/database_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
+import 'package:rinf/rinf.dart';
 
 import './messages/generated.dart';
 
 void main() async {
-  await initializeRust();
+  await initializeRust(assignRustSignal);
   WidgetsFlutterBinding.ensureInitialized();
   bool firstInit = true;
 

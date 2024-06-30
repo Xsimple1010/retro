@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:retro/components/base/retro_icon_button.dart';
+import 'package:retro/components/profile.dart';
 import 'package:retro/pages/settings.dart';
 
 class HomeBarConfigs extends StatelessWidget {
-  const HomeBarConfigs({super.key});
+  const HomeBarConfigs({super.key, required this.constraints});
+  final BoxConstraints constraints;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        RetroIconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.gamepad),
-        ),
-        RetroIconButton(
-          onPressed: () {
+        UseProfile(
+          onTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -22,7 +21,14 @@ class HomeBarConfigs extends StatelessWidget {
               ),
             );
           },
-          icon: const Icon(Icons.settings),
+          constraints: constraints,
+        ),
+        RetroIconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Ionicons.game_controller,
+            color: Colors.white60,
+          ),
         ),
       ],
     );

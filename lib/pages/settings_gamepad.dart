@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:retro/components/gamepad_big_button.dart';
 import 'package:retro/components/setting_options_big.dart';
 import 'package:retro/components/setting_title.dart';
@@ -21,7 +22,7 @@ class _SettingGamePadState extends State<SettingGamePad> {
 
   @override
   void initState() {
-    GamePadConnectedListInput().sendSignalToRust(null);
+    GamePadConnectedListInput().sendSignalToRust();
     super.initState();
   }
 
@@ -89,6 +90,7 @@ class _SettingGamePadState extends State<SettingGamePad> {
               ),
               SettingOptionBig(
                 constraints: widget.constraints,
+                icon: Ionicons.game_controller,
                 title: "Porta do console",
                 label: "Use isso para alterna entre o player 1 e 2",
                 onTab: () {},
@@ -114,6 +116,7 @@ class _SettingGamePadState extends State<SettingGamePad> {
                 ).length,
                 itemBuilder: (context, index) => SettingOptionBig(
                   constraints: widget.constraints,
+                  icon: Ionicons.game_controller,
                   title: getKeyMapsLen(
                     snapshot.data?.message.gamePadItems,
                     gamePadIndex,

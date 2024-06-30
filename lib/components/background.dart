@@ -52,7 +52,7 @@ class _BackgroundState extends State<Background> {
           height: widget.constraints.maxHeight,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color.fromARGB(38, 0, 0, 0), Colors.black],
+              colors: [Color.fromARGB(100, 0, 0, 0), Colors.black],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),

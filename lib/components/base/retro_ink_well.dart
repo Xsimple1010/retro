@@ -11,6 +11,8 @@ class RetroInkWell extends StatefulWidget {
     this.onLongPress,
     this.onFocusChange,
     this.borderRadius,
+    this.focusColor,
+    this.hoverColor,
   });
 
   final Widget child;
@@ -20,6 +22,8 @@ class RetroInkWell extends StatefulWidget {
   final void Function()? onLongPress;
   final Function(bool)? onFocusChange;
   final BorderRadius? borderRadius;
+  final Color? focusColor;
+  final Color? hoverColor;
 
   @override
   State<RetroInkWell> createState() => _RetroInkWellState();
@@ -75,7 +79,10 @@ class _RetroInkWellState extends State<RetroInkWell> {
         }
       },
       borderRadius: widget.borderRadius,
-      focusColor: Colors.transparent,
+      focusColor: widget.focusColor ?? Colors.transparent,
+      hoverColor: widget.hoverColor ?? null,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       child: widget.child,
     );
   }

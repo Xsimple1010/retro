@@ -60,7 +60,7 @@ class _GameItemState extends State<GameItem> {
     );
 
     const borderRadius = BorderRadius.all(
-      Radius.circular(12),
+      Radius.circular(25),
     );
 
     final db = context.read<DataBaseProvider>();
@@ -89,7 +89,7 @@ class _GameItemState extends State<GameItem> {
             child: const Icon(Icons.edit),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(25),
             child: Image.file(
               File(widget.data.img ?? ""),
               fit: BoxFit.cover,
@@ -97,24 +97,24 @@ class _GameItemState extends State<GameItem> {
             ),
           ),
         ),
-      )
-          ,
-    ).animate(
-      target: widget.enableAnimation
-          ? hasFocus
-          ? 1
-          : 0
-          : 0,
+      ),
     )
+        .animate(
+          target: widget.enableAnimation
+              ? hasFocus
+                  ? 1
+                  : 0
+              : 0,
+        )
         .moveY(
-      begin: 40,
-      end: -10.2,
-      curve: Curves.easeIn,
-      duration: const Duration(milliseconds: 150),
-    )
+          begin: 40,
+          end: -10.2,
+          curve: Curves.easeIn,
+          duration: const Duration(milliseconds: 150),
+        )
         .scale(
-      begin: const Offset(0.75, 0.75),
-      duration: const Duration(milliseconds: 150),
-    );
+          begin: const Offset(0.75, 0.75),
+          duration: const Duration(milliseconds: 150),
+        );
   }
 }
