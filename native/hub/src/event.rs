@@ -3,7 +3,7 @@ use std::sync::{Arc, Mutex};
 use tinic::Tinic;
 
 pub async fn load_rom(tinic: Arc<Mutex<Tinic>>) {
-    let mut receiver = LoadRomInput::get_dart_signal_receiver();
+    let mut receiver = LoadRomInput::get_dart_signal_receiver().unwrap();
 
     while let Some(dart_signal) = receiver.recv().await {
         if let Ok(tinic) = &mut tinic.lock() {
@@ -33,7 +33,7 @@ pub async fn load_rom(tinic: Arc<Mutex<Tinic>>) {
 // }
 
 pub async fn pause(tinic: Arc<Mutex<Tinic>>) {
-    let mut receiver = PauseInput::get_dart_signal_receiver();
+    let mut receiver = PauseInput::get_dart_signal_receiver().unwrap();
 
     while let Some(_) = receiver.recv().await {
         if let Ok(tinic) = &mut tinic.lock() {
@@ -43,7 +43,7 @@ pub async fn pause(tinic: Arc<Mutex<Tinic>>) {
 }
 
 pub async fn resume(tinic: Arc<Mutex<Tinic>>) {
-    let mut receiver = ResumeInput::get_dart_signal_receiver();
+    let mut receiver = ResumeInput::get_dart_signal_receiver().unwrap();
 
     while let Some(_) = receiver.recv().await {
         if let Ok(tinic) = &mut tinic.lock() {

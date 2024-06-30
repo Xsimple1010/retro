@@ -3,6 +3,7 @@
     "ARGB",
     "autofocus",
     "gamepad",
+    "Ionicons",
     "Libretro",
     "nullable",
     "sqlite",

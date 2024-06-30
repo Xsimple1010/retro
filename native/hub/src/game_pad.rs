@@ -4,7 +4,7 @@ use crate::messages::{
     game_pad_list::{self, GamePadConnectedListInput, GamePadConnectedListOutput},
 };
 use std::sync::{Arc, Mutex};
-use tinic::{GamePadState, RetroGamePad, Tinic};
+use tinic::{GamePadState, KeyMap, RetroGamePad, Tinic};
 
 static mut TINIC: Option<Arc<Mutex<Tinic>>> = None;
 
@@ -12,7 +12,7 @@ pub fn game_pad_listener(state: GamePadState, game_pad: RetroGamePad) {
     match state {
         GamePadState::ButtonPressed(b) => {
             println!("{:?}", b);
-            GamePadButtonPressedOutput { name: b }.send_signal_to_dart(None)
+            GamePadButtonPressedOutput { name: b }.send_signal_to_dart()
         }
         GamePadState::Connected | GamePadState::Disconnected => {
             unsafe {
@@ -25,13 +25,13 @@ pub fn game_pad_listener(state: GamePadState, game_pad: RetroGamePad) {
                 name: game_pad.name.to_string(),
                 port: game_pad.retro_port as i32,
             }
-            .send_signal_to_dart(None);
+            .send_signal_to_dart();
         }
     }
 }
 
 pub async fn get_game_pad_list(tinic: Arc<Mutex<Tinic>>) {
-    let mut receiver = GamePadConnectedListInput::get_dart_signal_receiver();
+    let mut receiver = GamePadConnectedListInput::get_dart_signal_receiver().unwrap();
 
     unsafe { TINIC = Some(tinic.clone()) }
 
@@ -52,9 +52,11 @@ fn seed_game_pad_list(tinic: &Arc<Mutex<Tinic>>) {
                     for key in game_pad.key_map {
                         key_map.push(game_pad_list::KeyMap {
                             native: key.native as i32,
-                            native_name: key.get_key_native_name().to_owned(),
+                            native_name: KeyMap::get_key_name_from_native_button(&key.native)
+                                .to_owned(),
                             retro: key.retro as i32,
-                            native_retro: key.get_key_retro_name().to_owned(),
+                            native_retro: KeyMap::get_key_name_from_retro_button(key.retro)
+                                .to_owned(),
                             pressed: key.pressed,
                         });
                     }
@@ -71,6 +73,6 @@ fn seed_game_pad_list(tinic: &Arc<Mutex<Tinic>>) {
         GamePadConnectedListOutput {
             game_pad_items: current_list,
         }
-        .send_signal_to_dart(None);
+        .send_signal_to_dart();
     }
 }
