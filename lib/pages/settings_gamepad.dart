@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:retro/components/gamepad_big_button.dart';
-import 'package:retro/components/setting_options_big.dart';
-import 'package:retro/components/setting_title.dart';
+import 'package:retro/components/buttons/gamepad_big_button.dart';
+import 'package:retro/components/buttons/setting_options_big.dart';
+import 'package:retro/components/texts/setting_title.dart';
 import 'package:retro/messages/game_pad_list.pbserver.dart';
 
 class SettingGamePad extends StatefulWidget {

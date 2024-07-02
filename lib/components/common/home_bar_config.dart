@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:retro/components/base/retro_icon_button.dart';
-import 'package:retro/components/profile.dart';
+import 'package:retro/components/buttons/user_profile_bt.dart';
 import 'package:retro/pages/settings.dart';
 
 class HomeBarConfigs extends StatelessWidget {
@@ -12,7 +12,7 @@ class HomeBarConfigs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        UseProfile(
+        UserProfileBt(
           onTap: () {
             Navigator.push(
               context,

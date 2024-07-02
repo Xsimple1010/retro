@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/components/background.dart';
-import 'package:retro/components/game_item_list.dart';
-import 'package:retro/components/home_bar.dart';
-import 'package:retro/components/list_roms_with_core_name.dart';
-import 'package:retro/components/start_menu.dart';
+import 'package:retro/components/backgrounds/background.dart';
+import 'package:retro/components/lists/game_item_list.dart';
+import 'package:retro/components/views/home_bar.dart';
+import 'package:retro/components/lists/list_roms_with_core_name.dart';
+import 'package:retro/components/views/start_menu.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/messages/load_rom.pb.dart';
 import 'package:retro/providers/database_provider.dart';
@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final db = context.watch<DataBaseProvider>();
+    // final startMenuProvider = context.watch<StartMenuProvider>();
 
     return Scaffold(
       body: LayoutBuilder(
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             ),
             StartMenu(
               constraints: constraints,
-            ),
+            )
           ],
         ),
       ),

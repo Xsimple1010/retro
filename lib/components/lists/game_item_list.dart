@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retro/components/game_item.dart';
+import 'package:retro/components/items/game_item.dart';
 import 'package:retro/database/db.dart';
 
 class GameItemList extends StatelessWidget {

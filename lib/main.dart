@@ -4,6 +4,7 @@ import 'package:retro/pages/first_init.dart';
 import 'package:retro/pages/home.dart';
 import 'package:retro/providers/change_background.dart';
 import 'package:retro/providers/database_provider.dart';
+import 'package:retro/providers/start_menu_provider.dart';
 import 'package:retro/tools/app_dir_manager.dart';
 import 'package:rinf/rinf.dart';
 
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<BgProvider>(
           create: (_) => BgProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => StartMenuProvider()),
         ChangeNotifierProvider.value(
           value: databaseProvider,
         ),

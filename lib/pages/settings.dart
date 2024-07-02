@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:retro/components/setting_title.dart';
-import 'package:retro/components/settings_option.dart';
+import 'package:retro/components/texts/setting_title.dart';
+import 'package:retro/components/buttons/settings_option.dart';
 import 'package:retro/pages/edit_roms.dart';
 import 'package:retro/pages/setting_core.dart';
 import 'package:retro/pages/settings_gamepad.dart';

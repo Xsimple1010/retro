@@ -2,10 +2,10 @@ import 'package:drift/drift.dart' as drift;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/components/background_card.dart';
-import 'package:retro/components/core_item.dart';
-import 'package:retro/components/game_item.dart';
-import 'package:retro/components/settings_option.dart';
+import 'package:retro/components/backgrounds/background_card.dart';
+import 'package:retro/components/items/core_item.dart';
+import 'package:retro/components/items/game_item.dart';
+import 'package:retro/components/buttons/settings_option.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/providers/database_provider.dart';
 

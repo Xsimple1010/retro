@@ -80,7 +80,7 @@ class _RetroInkWellState extends State<RetroInkWell> {
       },
       borderRadius: widget.borderRadius,
       focusColor: widget.focusColor ?? Colors.transparent,
-      hoverColor: widget.hoverColor ?? null,
+      hoverColor: widget.hoverColor,
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       child: widget.child,

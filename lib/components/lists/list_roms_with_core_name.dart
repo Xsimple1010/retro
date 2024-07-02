@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:retro/components/game_item_small.dart';
+import 'package:retro/components/items/game_item_small.dart';
 import 'package:retro/database/db.dart';
 import 'package:retro/providers/database_provider.dart';
 

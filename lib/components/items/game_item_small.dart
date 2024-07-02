@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:retro/components/base/retro_ink_well.dart';
-import 'package:retro/components/game_item_not_img.dart';
+import 'package:retro/components/items/game_item_not_img.dart';
 import 'package:retro/database/db.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 

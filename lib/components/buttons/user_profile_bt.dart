@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:retro/components/base/retro_ink_well.dart';
 
-class UseProfile extends StatelessWidget {
-  const UseProfile({
+class UserProfileBt extends StatelessWidget {
+  const UserProfileBt({
     super.key,
     required this.constraints,
     required this.onTap,
