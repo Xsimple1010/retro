@@ -7,28 +7,47 @@ enum StartMenuState {
   requestHidden,
 }
 
+enum StartMenuPage {
+  home,
+  gamepad,
+  core,
+  storage,
+  video,
+}
+
 class StartMenuProvider with ChangeNotifier {
-  StartMenuState _state = StartMenuState.hidden;
+  StartMenuState _visibility = StartMenuState.hidden;
+  StartMenuPage _page = StartMenuPage.home;
 
   void requestToShow() {
-    _state = StartMenuState.requestShow;
+    _visibility = StartMenuState.requestShow;
     notifyListeners();
   }
 
   void show() {
-    _state = StartMenuState.show;
+    _visibility = StartMenuState.show;
     notifyListeners();
   }
 
   void requestToHide() {
-    _state = StartMenuState.requestHidden;
+    _visibility = StartMenuState.requestHidden;
     notifyListeners();
   }
 
   void hidden() {
-    _state = StartMenuState.hidden;
+    _visibility = StartMenuState.hidden;
     notifyListeners();
   }
 
-  StartMenuState get() => _state;
+  //##page
+  void setCurrentPage(StartMenuPage newPage) {
+    _page = newPage;
+    notifyListeners();
+  }
+
+  StartMenuPage getPage() {
+    return _page;
+  }
+
+  StartMenuState get() => _visibility;
 }

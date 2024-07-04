@@ -162,9 +162,9 @@ checksum = "514de17de45fdb8dc022b1a7975556c53c86f9f0aa5f534b98977b171857c2c9"
 
 [[package]]
 name = "cc"
-version = "1.0.103"
+version = "1.0.104"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2755ff20a1d93490d26ba33a6f092a38a508398a5320df5d4b3014fcccce9410"
+checksum = "74b6a57f98764a267ff415d50a25e6e166f3831a5071af4995296ea97d210490"
 dependencies = [
  "jobserver",
  "libc",
@@ -1040,7 +1040,7 @@ dependencies = [
 [[package]]
 name = "retro_ab_gamepad"
 version = "0.1.0"
-source = "git+https://github.com/Xsimple1010/retro_ab_gamepad.git#b782726e26dc0748ad0d9372aa650215a3916d9a"
+source = "git+https://github.com/Xsimple1010/retro_ab_gamepad.git#724ae0f1e17a972c24ed9aa14c629ea00b326167"
 dependencies = [
  "gilrs",
  "lazy_static",
@@ -1049,9 +1049,9 @@ dependencies = [
 
 [[package]]
 name = "rinf"
-version = "6.13.0"
+version = "6.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c0d0bf28665abf00daa1d88b76095b3221e2942a6b25e6cb657b0b1b115c5f0"
+checksum = "c3897b646538863efae2719e0e039c2d597b29b9a7ada958f8387e242fb4ab66"
 dependencies = [
  "allo-isolate",
  "home",
@@ -1140,9 +1140,9 @@ checksum = "976295e77ce332211c0d24d92c0e83e50f5c5f046d11082cea19f3df13a3562d"
 
 [[package]]
 name = "rustls-webpki"
-version = "0.102.4"
+version = "0.102.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff448f7e92e913c4b7d4c6d8e4540a1724b319b4152b8aef6d4cf8339712b33e"
+checksum = "f9a6fccd794a42c2c105b513a2f62bc3fd8f3ba57a4593677ceb0bd035164d78"
 dependencies = [
  "ring",
  "rustls-pki-types",
@@ -1313,7 +1313,7 @@ dependencies = [
 [[package]]
 name = "tinic"
 version = "0.1.0"
-source = "git+https://github.com/Xsimple1010/tinic.git#a93c7daf12a2de5b210d869f9d5df009ecf17ac7"
+source = "git+https://github.com/Xsimple1010/tinic.git#715243845cce81115214d005e049938db20672cb"
 dependencies = [
  "lazy_static",
  "retro_ab",

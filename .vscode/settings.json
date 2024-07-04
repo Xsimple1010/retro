@@ -9,6 +9,7 @@
     "sqlite",
     "tinic",
     "Tinic",
-    "TINIC"
+    "TINIC",
+    "vsync"
   ]
 }
