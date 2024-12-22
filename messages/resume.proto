@@ -1,10 +1,6 @@
 syntax = "proto3";
 package resume;
 
-// [RINF:DART-SIGNAL]
+// [DART-SIGNAL]
 message ResumeInput {
-}
-
-// [RINF:RUST-SIGNAL]
-message ResumeOutput {
 }

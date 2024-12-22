@@ -1,15 +1,15 @@
 syntax = "proto3";
 package game_pad_list;
 
-
-// [RINF:DART-SIGNAL]
+// [DART-SIGNAL]
 message GamePadConnectedListInput {
 }
 
-// [RINF:RUST-SIGNAL]
+// [RUST-SIGNAL]
 message GamePadConnectedListOutput {
     repeated GamePadItem game_pad_items = 1;
 }
+
 
 message GamePadItem {
     string name = 1;

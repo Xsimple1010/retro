@@ -1,10 +1,6 @@
 syntax = "proto3";
 package pause;
 
-// [RINF:DART-SIGNAL]
+// [DART-SIGNAL]
 message PauseInput {
-}
-
-// [RINF:RUST-SIGNAL]
-message PauseOutput {
 }

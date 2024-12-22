@@ -2,11 +2,7 @@ syntax = "proto3";
 package game_pad_connected;
 
 
-// [RINF:DART-SIGNAL]
-message GamePadConnectedInput {
-}
-
-// [RINF:RUST-SIGNAL]
+// [RUST-SIGNAL]
 message GamePadConnectedOutput {
     string name = 1;
     int32 port = 2;

@@ -1,7 +1,7 @@
 syntax = "proto3";
 package game_pad_button_pressed;
 
-// [RINF:RUST-SIGNAL]
+// [RUST-SIGNAL]
 message GamePadButtonPressedOutput {
     string name = 1;
 }

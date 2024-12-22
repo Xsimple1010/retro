@@ -1,20 +1,18 @@
-//! This `hub` crate is the
-//! entry point of the Rust logic.
-extern crate once_cell;
-extern crate tinic;
 use std::sync::{Arc, Mutex};
-
 use tinic::Tinic;
-use tokio_with_wasm::tokio;
 
 mod event;
 mod game_pad;
 mod messages;
+use game_pad::device_state_listener;
+
+// Uncomment below to target the web.
+// use tokio_with_wasm::alias as tokio;
 
 rinf::write_interface!();
 
 async fn main() {
-    let tinic = Arc::new(Mutex::new(Tinic::new(Some(game_pad::game_pad_listener))));
+    let tinic = Arc::new(Mutex::new(Tinic::new(Some(device_state_listener)).unwrap()));
 
     tokio::spawn(event::load_rom(tinic.clone()));
     tokio::spawn(event::pause(tinic.clone()));

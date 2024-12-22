@@ -1,10 +1,7 @@
 syntax = "proto3";
 package load_state;
 
-// [RINF:DART-SIGNAL]
+// [DART-SIGNAL]
 message LoadStateInput {
 }
 
-// [RINF:RUST-SIGNAL]
-message LoadStateOutput {
-}
